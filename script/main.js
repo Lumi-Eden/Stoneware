@@ -61,8 +61,8 @@ let categoryId
 
 const categoryData = {
     default: {
-        images: ["img/polozky/desky/typ-A.png", "img/polozky/lampy-vazy/lampa-zula1.png", "img/polozky/doplnky/srdce.png", "img/polozky/foto/sklodeska.png"],
-        p: ["Náhrobky", "Lampy a Vázy", "Doplňky", "Sklodesky"]
+        images: ["img/polozky/desky/typ-A.png", "img/polozky/lampy-vazy/lampa-zula1.png", "img/polozky/doplnky/srdce.png", "img/polozky/foto/sklodeska.png", "img/polozky/oprava.jpg"],
+        p: ["Náhrobky", "Lampy a Vázy", "Doplňky", "Sklodesky", "Oprava"]
     },
 
     nahrobky: {
@@ -116,6 +116,16 @@ let p7 = document.getElementById("p7")
 let p8 = document.getElementById("p8")
 let p9 = document.getElementById("p9")
 
+//
+// Selectors
+let selectorNahrobky = document.getElementById("selector-nahrobky")
+let selectorLampyVazy = document.getElementById("selector-lampy-vazy")
+let selectorDoplnky = document.getElementById("selector-doplnky")
+let selectorSklodesky = document.getElementById("selector-sklodesky")
+
+
+//
+// Form buttons
 nahrobkyFormsBtn.addEventListener("click", () => {
     formOverlayNahrobky.style.display = "block"
     if (!formNahrobky.hasAttribute('data-form-draggable')) {
@@ -461,6 +471,15 @@ document.querySelectorAll(".category-img").forEach((category) => {
             }
         }
 
+        // On click - Oprava
+        if (categoryId == "item5" && !selectedMainCategory) {
+            const opravaPat = `file://${location.pathname.replace(/script[\\\/]main\.js.*/, 'oprava.html')}`;
+                if (typeof dataString !== 'undefined' && dataString) {
+                    window.open(`oprava.html?data=${dataString}`, "_blank", "width=595");
+                } else {
+                    window.open("oprava.html", "_blank", "width=595");
+                }
+        }
         // Proceed back to main selection
         if (nextCategory == "main-selection") {
             restoreMainSelection();
@@ -836,11 +855,28 @@ printRedirect.addEventListener("click", () => {
     const sklodeskuForms = document.querySelectorAll("#form-overlay-sklodesky form")
     sklodeskuForms.forEach((form) => {
         const rows = form.querySelectorAll(".row")
+        // Robustly find the 'rozmer' input: prefer an input with id containing 'rozmer',
+        // otherwise search rows for a label that includes the word 'Rozměr'.
+        let rozmerVal = "";
+        const byId = form.querySelector("input[id*='rozmer']")
+        if (byId) {
+            rozmerVal = byId.value || "";
+        } else {
+            for (const r of rows) {
+                const lab = r.querySelector('label')
+                if (lab && /rozm/i.test(lab.textContent)) {
+                    const inp = r.querySelector('input')
+                    if (inp) { rozmerVal = inp.value || ""; break }
+                }
+            }
+        }
+
         const formData = {
             jmeno:    rows[0]?.querySelector("input")?.value || "",
             prijmeni: rows[1]?.querySelector("input")?.value || "",
             narozeni: rows[2]?.querySelector("input")?.value || "",
             umrti:    rows[3]?.querySelector("input")?.value || "",
+            rozmer:   rozmerVal,
             text:     form.querySelector(".form-text")?.value || "",
             znak:     form.querySelector(".form-znak")?.value || "",
             foto:     form.querySelector(".form-foto")?.value || ""
@@ -852,3 +888,4 @@ printRedirect.addEventListener("click", () => {
     const dataString = encodeURIComponent(JSON.stringify(printData));
     window.open(`../TKamenictvi/print.html?data=${dataString}`, "_blank", "width=595");
 })
+

@@ -47,9 +47,11 @@ function buildSklodeskyForm(f, index) {
     const title = index === 0 ? "Sklodeska 1" : `Sklodeska ${index + 1}`;
     const name = [f.jmeno, f.prijmeni].filter(Boolean).join(" ");
     const dates = [f.narozeni, f.umrti].filter(Boolean).join(" – ");
+    const rozmer = (f.rozmer || "").toString().trim();
     let html = `<div class="form-block"><strong>${title}</strong>`;
     html += row("Jméno:", name);
     html += row("Data:", dates);
+    html += row("Rozměr:", rozmer)
     html += row("Text:", f.text);
     html += row("Znak:", f.znak);
     html += row("Foto:", f.foto);

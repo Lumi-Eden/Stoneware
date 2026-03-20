@@ -1,0 +1,58 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.4;
+    padding: 15px;
+    background-color: white;
+}
+
+header {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 8px 12px;
+    margin-bottom: 8px;
+    align-items: center;
+}
+
+header span { font-weight: bold; white-space: nowrap; }
+header input { padding: 4px 6px; border: 1px solid #999; font-size: 13px; width: 620px; min-width: 0; }
+header > br { display: none; }
+
+.divider { background-color: #ccc; height: 1px; margin: 8px 0; }
+
+main { display: grid; grid-template-columns: 1fr; gap: 10px; }
+main h2 { font-size: 15px; font-weight: bold; margin-bottom: 6px; }
+
+.entry { display: grid; grid-template-columns: auto 1fr; gap: 6px; align-items: start; }
+.entry label { display: flex; align-items: center; gap: 8px; font-weight: normal; }
+.entry textarea { width: 100%; min-height: 60px; padding: 6px; border: 1px solid #999; resize: vertical; white-space: pre-wrap; }
+.entry input[type="text"] { padding: 4px 6px; border: 1px solid #999; }
+
+.price-row { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+.price-row input[type="text"] { padding: 4px 6px; border: 1px solid #999; }
+
+.notes label { display: block; font-weight: bold; margin-bottom: 4px; }
+.notes textarea { width: 100%; padding: 6px; border: 1px solid #999; white-space: pre-wrap; resize: vertical; }
+
+#logo-podpis { position: fixed; bottom: 30px; left: 35px; width: 135px; height: 125px; }
+#podpis { position: fixed; right: 35px; bottom: 30px; font-weight: bold; font-size: 15px; }
+
+@media print {
+    body { padding: 10mm; width: 210mm; height: 297mm; margin: 0; }
+}
+
+#oprava-input { margin-left: 12px; width: 98%; }
+#rovnani-input { margin-left: 6px; width: 99%; }
+#barva-entry { margin-left: 21px; }
+

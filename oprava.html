@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doklad opravy</title>
+    <link rel="stylesheet" href="styles/oprava-style.css">
+    <script defer src="script/main.js"></script>
+    <script defer src="script/oprava-script.js"></script>
+</head>
+
+<body>
+    <header>
+        <span>Jméno zákazníka: </span> <input type="text" id="jmeno-zakaznika"> <br>
+        <span>Tel.: </span> <input type="text" id="tel"> <br>
+        <span>Místo: </span> <input type="text" id="misto"> <br>
+    </header>
+
+    <div class="divider"></div>
+
+    <main>
+        <h2>Opravy</h2>
+
+        <div class="entry">
+            <label id="oprava-label"><input type="checkbox" id="oprava-checkbox"> Oprava:</label>
+            <textarea id="oprava-input" placeholder="Popis opravy" style="pointer-events: none; opacity: 0.5;"></textarea>
+        </div>
+
+        <div class="entry">
+            <label id="rovnani-label"><input type="checkbox" id="rovnani-checkbox"> Rovnání:</label>
+            <textarea id="rovnani-input" placeholder="Popis rovnání" style="pointer-events: none; opacity: 0.5;"></textarea>
+        </div>
+
+        <div class="entry">
+            <label id="likvidace-label"><input type="checkbox" id="likvidace-checkbox"> Likvidace:</label>
+            <textarea id="likvidace-input" placeholder="Popis likvidace" style="pointer-events: none; opacity: 0.5;"></textarea>
+        </div>
+
+        <div class="entry">
+            <label><input type="checkbox" id="prebrus"> Přebrus</label>
+        </div>
+
+        <div class="entry">
+            <label><input type="checkbox" id="myti"> Mytí</label>
+        </div>
+
+        <div class="entry">
+            <label><input type="checkbox" id="lampa"> Lampa</label>
+        </div>
+
+        <div class="entry">
+            <label><input type="checkbox" id="vaza"> Váza</label>
+        </div>
+
+        <div class="entry">
+            <label><input type="checkbox" id="obnova-pisma"> Obnova Písma</label>
+        </div>
+
+        <div class="entry" id="barva-entry">
+            <label style="pointer-events: none; opacity: 0.5;" id="barva-label">Barva: <input type="text" id="barva-input" style="pointer-events: none; opacity: 0.5;"></label>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="price-row">
+            <label style="font-weight: bold;">Cena celkem: <input type="text" id="cena-input"></label>
+            <div class="do-kdy-row">
+                <label style="font-weight: bold;">Do kdy: <input type="text" id="do-kdy-input"></label>
+            </div>
+        </div>
+
+        <div class="notes">
+            <label>Poznámky</label>
+            <textarea id="poznamky-input" rows="6" placeholder="text zde..."></textarea>
+        </div>
+
+    </main>
+
+    <footer>
+        <img src="./img/logo.jpg" id="logo-podpis" alt="logo">
+        <p id="podpis">Podpis zákazníka: ..........................</p>
+    </footer>
+</body>
+</html>

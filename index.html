@@ -37,6 +37,7 @@
             <div class="row"><label for="form-prijmeni">Příjmení</label> <input type="text" id="form-prijmeni"></div>
             <div class="row"><label for="form-narozeni">☆</label> <input type="text" id="form-narozeni"></div>
             <div class="row"><label for="form-umrti">†</label> <input type="text" id="form-umrti"></div>
+            <div class="row"><label for="form-rozmer">Rozměr</label> <input type="text" id="form-rozmer"></div>
             <div class="row"><input type="checkbox" class="form-text-check" onclick="enableFormInput(this)"> <label for="form-text">Libovolný text</label><input type="text" class="form-text"></div>
             <div class="row"><input type="checkbox" class="form-znak-check" onclick="enableFormInput(this)"> <label for="form-znak">Znak</label><input type="text" class="form-znak"></div>
             <div class="row"><input type="checkbox" class="form-foto-check" onclick="enableFormInput(this)"> <label for="foto">Foto</label><input type="text" class="form-foto"></div>
@@ -63,15 +64,13 @@
 
     <aside id="categories-selector">
         <h2>Kategorie</h2>
-        <div class="selector"> <span>Náhrobky</span> </div>  <br>
-        <div class="selector"> <span>Lampy a Vázy</span> </div> <br>
-        <div class="selector"> <span>Doplňky</span> </div> <br>
-        <div class="selector"> <span>Sklodesky</span> </div> <br>
+        <div class="selector" id="selector-nahrobky"> <span>Náhrobky</span> </div>  <br>
+        <div class="selector" id="selector-lampy-vazy"> <span>Lampy a Vázy</span> </div> <br>
+        <div class="selector" id="selector-doplnky"> <span>Doplňky</span> </div> <br>
+        <div class="selector" id="selector-sklodesky"> <span>Sklodesky</span> </div> <br>
     </aside>
 
-    <aside id="selection-log">
-
-    </aside>
+    <aside id="selection-log"></aside>
 
     <main>
         <div class="categories" id="categories-default">
@@ -79,8 +78,8 @@
                 <div class="category"> <img src="img/polozky/desky/typ-A.png" id="item1" alt="" class="category-img"> <p id="p1">Náhrobky</p> </div>
                 <div class="category"> <img src="img/polozky/lampy-vazy/lampa-zula1.png" id="item2" alt="" class="category-img"> <p id="p2">Lampy a Vázy</p> </div>
                 <div class="category"> <img src="img/polozky/doplnky/srdce.png" id="item3" alt="" class="category-img"> <p id="p3">Doplňky</p> </div>
-                <div class="category"> <img src="img/polozky//foto/sklodeska.png" alt="" id="item4" class="category-img"> <p id="p4">Sklodesky</p> </div>
-                <div class="category"> <img src="" alt="" id="item5" class="category-img"> <p id="p5"></p> </div>
+                <div class="category"> <img src="img/polozky/foto/sklodeska.png" alt="" id="item4" class="category-img"> <p id="p4">Sklodesky</p> </div>
+                <div class="category"> <img src="img/polozky/oprava.png" alt="" id="item5" class="category-img"> <p id="p5">Oprava</p> </div>
                 <div class="category"> <img src="" alt="" id="item6" class="category-img"> <p id="p6"></p> </div>
                 <div class="category"> <img src="" alt="" id="item7" class="category-img"> <p id="p7"></p> </div>
                 <div class="category"> <img src="" alt="" id="item8" class="category-img"> <p id="p8"></p> </div>
@@ -90,6 +89,6 @@
         </div>
     </main>
     
-    <p style="position: fixed; bottom: 0; right: 15px; font-weight: bold;">Verze 0.1b</p>
+    <p style="position: fixed; bottom: 0; right: 15px; font-weight: bold;">Verze 0.2b</p>
 </body>
 </html>
