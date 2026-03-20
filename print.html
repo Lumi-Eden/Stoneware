@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doklad</title>
+    <link rel="stylesheet" href="styles/print-style.css">
+    <script defer src="script/main.js"></script>
+    <script src="script/print-script.js"></script>
+</head>
+<body>
+    <header>
+        <span>Jméno zákazníka: </span> <input type="text" id="jmeno-zakaznika"> <br>
+        <span>Tel.: </span> <input type="text" id="tel"> <br>
+        <span>Místo: </span> <input type="text" id="misto"> <br>
+    </header>
+    <div class="divider"></div>
+    <main>
+        <h2>Položky</h2>
+        <div id="polozky">
+ 
+            <!-- NÁHROBKY -->
+            <div class="section-row">
+                <span">Náhrobky:</span>
+                <p id="nahrobky-imported"></p>
+            </div>
+            <div id="nahrobky-forms"></div>
+ 
+            <!-- SKLODESKY -->
+            <div class="section-row">
+                <span>Sklodesky:</span>
+            </div>
+            <div id="sklodesky-forms"></div>
+ 
+            <div style="grid-column: 1 / -1; display: flex; gap: 20px;">
+                <!-- DOPLŇKY -->
+                <div class="section-row" style="flex: 1">
+                    <span>Doplňky:</span>
+                    <div id="doplnky-imported" class="multi-block"></div>
+                </div>
+
+                <!-- LAMPY A VÁZY -->
+                <div class="section-row" style="flex: 1">
+                    <span>Lampy a Vázy:</span>
+                    <div id="lampy-vazy-imported" class="multi-block"></div>
+                </div>
+            </div>
+ 
+            <!-- PÍSMO -->
+            <ul>
+                <span>Písmo:</span>
+                <li>
+                    <p>
+                        <span style="font-weight: normal;">Typ: </span>
+                        <span id="pismo-imported"></span>
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <span style="font-weight: normal;">Barva písma: </span>
+                        <input type="text" id="barva-input">
+                    </p>
+                </li>
+            </ul>
+ 
+        </div>
+        <div class="divider"></div>
+        <span id="cena-celkem">Cena celkem: </span> <input type="text" id="cena-input"> <br>
+        <span>Do kdy: </span> <input type="text" id="do-kdy-input"> <br>
+        <br>
+        <span>Poznámky</span>
+        <textarea id="poznamky-input" rows="3" cols="40"></textarea>
+    </main>
+</body>
+</html>

@@ -1,0 +1,30 @@
+SOFTWAROVÁ LICENČNÍ SMLOUVA (ZKUŠEBNÍ VERZE)
+
+Vlastník (Poskytovatel): Radek Štekl
+Nabyvatel: Kamenictví David Tománek
+
+1. Předmět licence
+
+	Tento software (dále jen „Program“) je autorským dílem chráněným zákonem. Poskytovatel tímto uděluje Nabyvateli nevýhradní, nepřenosnou a časově omezenou licenci k užití této testovací (beta) verze Programu výhradně pro účely 	interního testování a vyhodnocení funkčnosti.
+
+2. Vlastnická práva
+
+	Veškerá majetková a duševní práva k Programu zůstávají plně v držení Poskytovatele. Tato smlouva nepředstavuje prodej Programu, ale pouze oprávnění k jeho dočasnému užití.
+
+3. Omezení užití
+
+	Nabyvatel nesmí Program bez předchozího písemného souhlasu Poskytovatele:
+
+    		Poskytovat třetím stranám, prodávat nebo dále licencovat.
+
+    		Provádět zpětné inženýrství (reverse engineering) nebo dekompilaci zdrojového kódu.
+
+    		Modifikovat nebo vytvářet odvozená díla.
+
+4. Vyloučení odpovědnosti (AS IS)
+
+	Vzhledem k tomu, že se jedná o prototyp (beta verzi), je Program poskytován „TAK JAK JE“ (as is). Poskytovatel neposkytuje žádné záruky za bezchybnost, stabilitu nebo vhodnost pro konkrétní účel. Poskytovatel nenese odpovědnost 	za jakékoli přímé či nepřímé škody, ztrátu dat nebo ušlý zisk vzniklý v souvislosti s používáním tohoto Programu.
+
+5. Doba trvání a ukončení
+
+	Tato licence je platná do doby podpisu řádné komerční smlouvy nebo do odvolání Poskytovatelem. Poskytovatel si vyhrazuje právo licenci kdykoli ukončit.

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DT Katalog</title>
+    <link rel="stylesheet" href="./styles/style.css">
+    <script defer src="./script/main.js"></script>
+</head>
+<body>
+    <div class="form-overlay" id="form-overlay-nahrobky" style="display: none;">
+        <form id="form-nahrobky">
+            <div class="handle">
+                <button type="button" class="form-exit">✖</button>
+                <h2 id="form-nahrobky-title">Náhrobek 1</h2>
+            </div>
+            <div class="row"><label for="form-jmeno">Jméno</label> <input type="text" id="form-jmeno"></div>
+            <div class="row"><label for="form-prijmeni">Příjmení</label> <input type="text" id="form-prijmeni"></div>
+            <div class="row"><label for="form-narozeni">☆</label> <input type="text" id="form-narozeni"></div>
+            <div class="row"><label for="form-umrti">†</label> <input type="text" id="form-umrti"></div>
+            <div class="row"><input type="checkbox" class="form-text-check" onclick="enableFormInput(this)"> <label for="form-text">Libovolný text</label><input type="text" class="form-text"></div>
+            <div class="row"><input type="checkbox" class="form-znak-check" onclick="enableFormInput(this)"> <label for="form-znak">Znak</label><input type="text" class="form-znak"></div>
+            <div class="row"><input type="checkbox" class="form-foto-check" onclick="enableFormInput(this)"> <label for="foto">Foto</label><input type="text" class="form-foto"></div>
+            <div class="row"><input type="checkbox" id="form-lesteni-check"> <label for="form-lesteni-check">Leštění zezadu</label></div>
+            <div class="row"><input type="checkbox" id="form-chodnicky-check"> <label for="form-chodnicky-check">Chodníčky</label></div>
+            <button type="button" class="pridat-dalsi">Přidat Další</button>
+        </form>
+    </div>
+
+    <div class="form-overlay" id="form-overlay-sklodesky" style="display: none;">
+        <form id="form-sklodesky">
+            <div class="handle">
+                <button type="button" class="form-exit">✖</button>
+                <h2 id="form-sklodesky-title">Sklodeska 1</h2>
+            </div>
+            <div class="row"><label for="form-jmeno">Jméno</label> <input type="text" id="form-jmeno"></div>
+            <div class="row"><label for="form-prijmeni">Příjmení</label> <input type="text" id="form-prijmeni"></div>
+            <div class="row"><label for="form-narozeni">☆</label> <input type="text" id="form-narozeni"></div>
+            <div class="row"><label for="form-umrti">†</label> <input type="text" id="form-umrti"></div>
+            <div class="row"><input type="checkbox" class="form-text-check" onclick="enableFormInput(this)"> <label for="form-text">Libovolný text</label><input type="text" class="form-text"></div>
+            <div class="row"><input type="checkbox" class="form-znak-check" onclick="enableFormInput(this)"> <label for="form-znak">Znak</label><input type="text" class="form-znak"></div>
+            <div class="row"><input type="checkbox" class="form-foto-check" onclick="enableFormInput(this)"> <label for="foto">Foto</label><input type="text" class="form-foto"></div>
+            <button type="button" class="pridat-dalsi">Přidat Další</button>
+        </form>
+    </div>
+
+    <header>
+        <img src="./materials/logo-full.png" id="logo" alt="DT Logo">
+        <div id="search-header">
+            <div id="search-field-div">
+                <img src="./img/repeat.png" alt="začít znovu" id="repeat-btn" onclick="clearSelection()">
+                <div class="divider"></div>
+                <input type="search" id="search-field" placeholder="Hledání..." oninput="searchFilter(event)">
+                <div class="divider"></div>
+                <img src="./img/mag-glass.png" alt="search" id="mag-glass">
+                <img src="./img/print.png" alt="print" id="print-btn">
+            </div>
+        </div>
+
+        <button type="button" id="nahrobky-forms-btn">Náhrobky</button>
+        <button type="button" id="sklodesky-forms-btn">Sklodesky</button>
+    </header>
+
+    <aside id="categories-selector">
+        <h2>Kategorie</h2>
+        <div class="selector"> <span>Náhrobky</span> </div>  <br>
+        <div class="selector"> <span>Lampy a Vázy</span> </div> <br>
+        <div class="selector"> <span>Doplňky</span> </div> <br>
+        <div class="selector"> <span>Sklodesky</span> </div> <br>
+    </aside>
+
+    <aside id="selection-log">
+
+    </aside>
+
+    <main>
+        <div class="categories" id="categories-default">
+             <div class="parent">
+                <div class="category"> <img src="img/polozky/desky/typ-A.png" id="item1" alt="" class="category-img"> <p id="p1">Náhrobky</p> </div>
+                <div class="category"> <img src="img/polozky/lampy-vazy/lampa-zula1.png" id="item2" alt="" class="category-img"> <p id="p2">Lampy a Vázy</p> </div>
+                <div class="category"> <img src="img/polozky/doplnky/srdce.png" id="item3" alt="" class="category-img"> <p id="p3">Doplňky</p> </div>
+                <div class="category"> <img src="img/polozky//foto/sklodeska.png" alt="" id="item4" class="category-img"> <p id="p4">Sklodesky</p> </div>
+                <div class="category"> <img src="" alt="" id="item5" class="category-img"> <p id="p5"></p> </div>
+                <div class="category"> <img src="" alt="" id="item6" class="category-img"> <p id="p6"></p> </div>
+                <div class="category"> <img src="" alt="" id="item7" class="category-img"> <p id="p7"></p> </div>
+                <div class="category"> <img src="" alt="" id="item8" class="category-img"> <p id="p8"></p> </div>
+                <div class="category"> <img src="" alt="" id="item9" class="category-img"> <p id="p9"></p> </div>
+                <div class="category"> <img src="" alt="" id="item10" class="category-img"> <p id="p10"></p> </div>
+            </div> 
+        </div>
+    </main>
+    
+    <p style="position: fixed; bottom: 0; right: 15px; font-weight: bold;">Verze 0.1b</p>
+</body>
+</html>
