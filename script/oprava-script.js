@@ -1,9 +1,19 @@
 // Storing the input as a value for saving of file
 const inputs = document.querySelectorAll("input, textarea")
 inputs.forEach(input => {
-    input.addEventListener("input", () => {
-         input.setAttribute("value", input.value)
-    })
+    if (input.type === "checkbox") {
+        input.addEventListener("change", () => {
+            if (input.checked) {
+                input.setAttribute("checked", "")
+            } else {
+                input.removeAttribute("checked")
+            }
+        })
+    } else {
+        input.addEventListener("input", () => {
+            input.setAttribute("value", input.value)
+        })
+    }
 })
 
 // Oprava
