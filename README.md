@@ -1,2 +1,2 @@
 # Stoneware
-Software made for managing and saving orders inside a masonry
+Software vytvořen pro zjednodušení procesu tvoření a ukládání objednávek
