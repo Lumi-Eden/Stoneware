@@ -27,6 +27,31 @@
         </form>
     </div>
 
+    <div class="form-overlay" id="form-overlay-schody" style="display: none;">
+        <form id="form-schody">
+            <div class="handle">
+                <button type="button" class="form-exit">✖</button>
+                <h2 id="form-schody-title">Schody 1</h2>
+            </div>
+            <div class="row"><label for="form-rozmer-stupnice">Rozměr Stupnice</label> <input type="text" id="form-rozmer-stupnice"></div>
+            <div class="row"><label for="form-rozmer-podstupnice">Rozměr Podstupnice</label> <input type="text" id="form-rozmer-stupnice"></div>
+            <button type="button" class="pridat-dalsi">Přidat Další</button>
+        </form>
+    </div>
+
+    <div class="form-overlay" id="form-overlay-parapety" style="display: none;">
+        <form id="form-parapety">
+            <div class="handle">
+                <button type="button" class="form-exit">✖</button>
+                <h2 id="form-parapety-title">Parapety 1</h2>
+            </div>
+            <div class="row"><label for="form-rozmer">Rozměr</label> <input type="text" id="form-jmeno"></div>
+            <div class="row"><label for="form-tloustka">Tloušťka</label> <input type="text" id="form-prijmeni"></div>
+            <div class="row"><input type="checkbox" class="form-text-check" onclick="enableFormInput(this)"> <label for="form-text">Okapnička</label><input type="text" class="form-text"></div>
+            <button type="button" class="pridat-dalsi">Přidat Další</button>
+        </form>
+    </div>
+
     <div class="form-overlay" id="form-overlay-sklodesky" style="display: none;">
         <form id="form-sklodesky">
             <div class="handle">
@@ -79,12 +104,15 @@
                 <div class="category"> <img src="img/polozky/lampy-vazy/lampa-zula1.png" id="item2" alt="" class="category-img"> <p id="p2">Lampy a Vázy</p> </div>
                 <div class="category"> <img src="img/polozky/doplnky/srdce.png" id="item3" alt="" class="category-img"> <p id="p3">Doplňky</p> </div>
                 <div class="category"> <img src="img/polozky/foto/sklodeska.png" alt="" id="item4" class="category-img"> <p id="p4">Sklodesky</p> </div>
-                <div class="category"> <img src="img/polozky/oprava.png" alt="" id="item5" class="category-img"> <p id="p5">Oprava</p> </div>
-                <div class="category"> <img src="" alt="" id="item6" class="category-img"> <p id="p6"></p> </div>
-                <div class="category"> <img src="" alt="" id="item7" class="category-img"> <p id="p7"></p> </div>
+                <div class="category"> <img src="img/polozky/schody.png" alt="" id="item5" class="category-img"> <p id="p5">Schody</p> </div>
+                <div class="category"> <img src="img/polozky/parapety.png" alt="" id="item6" class="category-img"> <p id="p6">Parapety</p> </div>
+                <div class="category"> <img src="img/polozky/oprava.png" alt="" id="item7" class="category-img"> <p id="p7">Oprava</p> </div>
                 <div class="category"> <img src="" alt="" id="item8" class="category-img"> <p id="p8"></p> </div>
                 <div class="category"> <img src="" alt="" id="item9" class="category-img"> <p id="p9"></p> </div>
                 <div class="category"> <img src="" alt="" id="item10" class="category-img"> <p id="p10"></p> </div>
+                <div class="category"> <img src="" alt="" id="item11" class="category-img"> <p id="p11"></p> </div>
+                <div class="category"> <img src="" alt="" id="item12" class="category-img"> <p id="p12"></p> </div>
+                <div class="category"> <img src="" alt="" id="item13" class="category-img"> <p id="p13"></p> </div>
             </div> 
         </div>
     </main>

@@ -19,21 +19,37 @@ let selectionDoplnekLog = null
 let selectionLampyVazyLog = null
 let selectionLampyVazyBarva = null
 
+let selectionSchodyMaterialStupnice = null
+let selectionSchodyMaterialPodstupnice = null
+let AwaitingPrimarySelectionSchodyMaterial = true
+let selectionSchodyLog = null
+
+let selectionParapetyMaterial = null
+let selectionParapetyLog = null
+
 // Forms
 const nahrobkyFormsBtn = document.getElementById("nahrobky-forms-btn")
 const sklodeskyFormsBtn = document.getElementById("sklodesky-forms-btn")
 
-let formOverlay = document.querySelectorAll(".form-overlay")
-let formOverlayNahrobky = document.getElementById("form-overlay-nahrobky")
-let formOverlaySklodesky = document.getElementById("form-overlay-sklodesky")
+const formOverlay = document.querySelectorAll(".form-overlay")
+const formOverlayNahrobky = document.getElementById("form-overlay-nahrobky")
+const formOverlaySklodesky = document.getElementById("form-overlay-sklodesky")
+const formOverlaySchody = document.getElementById("form-overlay-schody")
+const formOverlayParapety = document.getElementById("form-overlay-parapety")
 
-let formNahrobky = document.getElementById("form-nahrobky")
-let formSklodesky = document.getElementById("form-sklodesky")
+const formNahrobky = document.getElementById("form-nahrobky")
+const formSklodesky = document.getElementById("form-sklodesky")
+const formSchody = document.getElementById("form-schody")
+const formParapety = document.getElementById("form-parapety")
 
 let formNahrobkyTitle = document.getElementById("form-nahrobky-title")
 let formNahrobkyNumber = 1
 let formSklodeskyTitle = document.getElementById("form-sklodesky-title")
 let formSklodeskyNumber = 1
+let formSchodyTitle = document.getElementById("form-schody-title")
+let formSchodyNumber = 1
+let formParapetyTitle = document.getElementById("form-parapety-title")
+let formParapetyNumber = 1
 
 let formExit = document.querySelectorAll(".form-exit")
 let pridatDalsi = document.querySelectorAll(".pridat-dalsi")
@@ -61,8 +77,8 @@ let categoryId
 
 const categoryData = {
     default: {
-        images: ["img/polozky/desky/typ-A.png", "img/polozky/lampy-vazy/lampa-zula1.png", "img/polozky/doplnky/srdce.png", "img/polozky/foto/sklodeska.png", "img/polozky/oprava.jpg"],
-        p: ["Náhrobky", "Lampy a Vázy", "Doplňky", "Sklodesky", "Oprava"]
+        images: ["img/polozky/desky/typ-A.png", "img/polozky/lampy-vazy/lampa-zula1.png", "img/polozky/doplnky/srdce.png", "img/polozky/foto/sklodeska.png","img/polozky/schody.png", "img/polozky/parapety.png", "img/polozky/oprava.png"],
+        p: ["Náhrobky", "Lampy a Vázy", "Doplňky", "Sklodesky", "Schody", "Parapety", "Oprava"]
     },
 
     nahrobky: {
@@ -70,8 +86,8 @@ const categoryData = {
         p: ["Typ-A", "Typ-B", "Typ-C", "Typ-D", "Typ-E", "Typ-F"]
     },
     materialy: {
-        images: ["img/polozky/zula/antas.png", "img/polozky/zula/aurora.png", "img/polozky/zula/grey.png", "img/polozky/zula/impala-nero.png", "img/polozky/zula/labrador-blue-pearl.png", "img/polozky/zula/orion.png", "img/polozky/zula/paradiso.png", "img/polozky/zula/sardo.png", "img/polozky/zula/tarn.png", "img/polozky/zula/absolute-black.png"],
-        p: ["Antas", "Aurora", "Grey", "Impala Nero", "Labrador Blue Pearl", "Orion", "Paradiso", "Sardo", "Tarn", "Absolute Black"]
+        images: ["img/polozky/zula/antas.png", "img/polozky/zula/aurora.png", "img/polozky/zula/grey.png", "img/polozky/zula/impala-nero.png", "img/polozky/zula/labrador-blue-pearl.png", "img/polozky/zula/orion.png", "img/polozky/zula/paradiso.png", "img/polozky/zula/sardo.png", "img/polozky/zula/tarn.png", "img/polozky/zula/absolute-black.png", "img/polozky/zula/cinza-opalovana.jpg", "img/polozky/zula/impala-nero-opalovana.jpg", "img/polozky/zula/premium-black.jpg"],
+        p: ["Antas", "Aurora", "Grey", "Impala Nero", "Labrador Blue Pearl", "Orion", "Paradiso", "Sardo", "Tarn", "Absolute Black", "Cinza Opalovaná", "Impala Nero Opalovaná", "Premium Black"]
     },
     pismo: {
         images: ["img/polozky/font/caslon-regular.png", "img/polozky/font/caslon-bold.png", "img/polozky/font/bangkok-regular.png", "img/polozky/font/monotype-corsiva.png", "img/polozky/font/alternate-g.png", "img/polozky/font/balantines-script.png", "img/polozky/font/balantines-bold.png"],
@@ -105,6 +121,10 @@ let item6 = document.getElementById("item6")
 let item7 = document.getElementById("item7")
 let item8 = document.getElementById("item8")
 let item9 = document.getElementById("item9")
+let item10 = document.getElementById("item10")
+let item11 = document.getElementById("item11")
+let item12 = document.getElementById("item12")
+let item13 = document.getElementById("item13")
 
 let p1 = document.getElementById("p1")
 let p2 = document.getElementById("p2")
@@ -115,6 +135,10 @@ let p6 = document.getElementById("p6")
 let p7 = document.getElementById("p7")
 let p8 = document.getElementById("p8")
 let p9 = document.getElementById("p9")
+let p10 = document.getElementById("p10")
+let p11 = document.getElementById("p11")
+let p12 = document.getElementById("p12")
+let p13 = document.getElementById("p13")
 
 //
 // Selectors
@@ -213,7 +237,10 @@ document.querySelectorAll(".category-img").forEach((category) => {
                     item7: "Paradiso",
                     item8: "Sardo",
                     item9: "Tarn",
-                    item10: "Abs. Black"
+                    item10: "Abs. Black",
+                    item11: "Cinza Opal.",
+                    item12: "Impala Nero Opal.",
+                    item13: "Premium Black"
                 }
 
                 const selectedMaterial = materialValues[categoryId]
@@ -228,6 +255,40 @@ document.querySelectorAll(".category-img").forEach((category) => {
                         console.log("Material pro lampu/vázu zvolen: ", selectionLampyVazyMaterial)
                         if (selectionLampyVazyLog) appendSelectionText(selectionLampyVazyLog, selectedMaterial)
 
+                    } else if (selectedMainCategory === "schody") {
+                        if (AwaitingPrimarySelectionSchodyMaterial == true) {
+                            selectionSchodyMaterialStupnice = selectedMaterial
+                            console.log("Materiál pro stupnici zvolen: ", selectionSchodyMaterialStupnice)
+                            if (selectionSchodyLog) appendSelectionText(selectionSchodyLog, selectionSchodyMaterialStupnice)
+                            AwaitingPrimarySelectionSchodyMaterial = false
+                        } else {
+                                selectionSchodyMaterialPodstupnice = selectedMaterial
+                                console.log("Materiál pro podstupnici zvolen: ", selectionSchodyMaterialPodstupnice)
+                                if (selectionSchodyLog) appendSelectionText(selectionSchodyLog, selectionSchodyMaterialPodstupnice)
+                                AwaitingPrimarySelectionSchodyMaterial = true
+
+                                // Open Schody form when both materials selected
+                                if (formOverlaySchody) {
+                                    formOverlaySchody.style.display = "block"
+                                    if (!formSchody.hasAttribute('data-form-draggable')) {
+                                        makeFormDraggable(formSchody, formOverlaySchody)
+                                    }
+                                }
+                        }
+
+                    } else if (selectedMainCategory === "parapety") {
+                        selectionParapetyMaterial = selectedMaterial
+                        console.log("Materiál pro Parapety zvolen: ", selectionParapetyMaterial)
+                        if (selectionParapetyLog) appendSelectionText(selectionParapetyLog, selectedMaterial)
+                        
+                            // Open Parapety form after material selected
+                            if (formOverlayParapety) {
+                                formOverlayParapety.style.display = "block"
+                                if (!formParapety.hasAttribute('data-form-draggable')) {
+                                    makeFormDraggable(formParapety, formOverlayParapety)
+                                }
+                            }
+
                     } else {
                         selectionNahrobekMaterial = selectedMaterial
                         console.log("Materiál pro náhrobek zvolen: ", selectionNahrobekMaterial)
@@ -236,6 +297,10 @@ document.querySelectorAll(".category-img").forEach((category) => {
 
                     if (selectedMainCategory === "nahrobky") {
                         nextCategory = "pismo"
+
+                    } else if (AwaitingPrimarySelectionSchodyMaterial === false) {
+                        nextCategory = "materialy"
+
                     } else {
                         nextCategory = "main-selection"
                     }
@@ -402,6 +467,10 @@ document.querySelectorAll(".category-img").forEach((category) => {
             updateDisplay("nahrobky")
 
             categoryId = ""
+
+            // Hide remnants of prev category
+            item7.src = ""
+            p7.textContent = ""
         }
 
         // Show category Lampy Vázy
@@ -411,6 +480,11 @@ document.querySelectorAll(".category-img").forEach((category) => {
             selectedMainCategory = "lampy-vazy"
 
             updateDisplay("lampyVazy")
+
+            // Hide remnants of prev category
+            item5.src = ""; item6.src = ""; item7.src = ""; item8.src = ""; item9.src = ""; item10.src = ""; item11.src = ""; item12.src = ""; item13.src = "";
+            p5.textContent = ""; p6.textContent = ""; p7.textContent = ""; p8.textContent = ""; p9.textContent = ""; p10.textContent = ""; p11.textContent = ""; p12.textContent = ""; p13.textContent = "";
+
 
             categoryId = ""
         }
@@ -423,7 +497,71 @@ document.querySelectorAll(".category-img").forEach((category) => {
 
             updateDisplay("doplnky")
 
+            // Hide remnants of prev category
+            item5.src = ""; item6.src = ""; item7.src = ""; item8.src = ""; item9.src = ""; item10.src = ""; item11.src = ""; item12.src = ""; item13.src = ""; 
+            p5.textContent = ""; p5.textContent = ""; p6.textContent = ""; p7.textContent = ""; p8.textContent = ""; p9.textContent = ""; p10.textContent = ""; p11.textContent = ""; p12.textContent = ""; p13.textContent = "";
+
             categoryId = ""
+        }
+
+        // Show form Sklodesky
+        if (categoryId == "item4" && !selectedMainCategory) {
+            formOverlaySklodesky.style.display = "block"
+            // Make original form draggable if not already initialized
+            if (!formSklodesky.hasAttribute('data-form-draggable')) {
+                makeFormDraggable(formSklodesky, formOverlaySklodesky)
+            }
+            categoryId = "" // Might cause issues - to be tested
+        }
+
+        if (categoryId == "item5" && !selectedMainCategory) {
+            console.log("Category 'Schody' loading...")
+            currentlySelectedCategory = "schody"
+            selectedMainCategory = "schody"
+
+            // Log Schody
+            selectionSchodyLog = document.createElement("span")
+            selectionSchodyLog.setAttribute("class", "log-item")
+            let selectionSchodyText = document.createElement("span")
+            selectionSchodyText.setAttribute("class", "log-text")
+            selectionSchodyText.innerText = "Schody"
+            selectionSchodyLog.appendChild(selectionSchodyText)
+            selectionLog.appendChild(selectionSchodyLog)
+            delBtn(selectionSchodyLog, 'schody')
+
+            nextCategory = "materialy"
+
+            categoryId = ""
+        }
+
+        if (categoryId === "item6" && !selectedMainCategory) {
+            console.log("Category 'Schody' loading...")
+            currentlySelectedCategory = "parapety"
+            selectedMainCategory = "parapety"
+
+            // Log Schody
+            selectionParapetyLog = document.createElement("span")
+            selectionParapetyLog.setAttribute("class", "log-item")
+            let selectionParapetyText = document.createElement("span")
+            selectionParapetyText.setAttribute("class", "log-text")
+            selectionParapetyText.innerText = "Parapety"
+            selectionParapetyLog.appendChild(selectionParapetyText)
+            selectionLog.appendChild(selectionParapetyLog)
+            delBtn(selectionParapetyLog, 'Parapety')
+
+            nextCategory = "materialy"
+
+            categoryId = ""
+        }
+
+        // Show print Oprava
+        if (categoryId == "item7" && !selectedMainCategory) {
+            const opravaPat = `file://${location.pathname.replace(/script[\\\/]main\.js.*/, 'oprava.html')}`;
+            if (typeof dataString !== 'undefined' && dataString) {
+                window.open(`oprava.html?data=${dataString}`, "_blank", "width=595");
+            } else {
+                window.open("oprava.html", "_blank", "width=595");
+            }
         }
 
         // Show category Materiály
@@ -442,8 +580,8 @@ document.querySelectorAll(".category-img").forEach((category) => {
             currentlySelectedCategory = "pismo"
 
             // Hide remnants of prev category
-            item8.src = ""; item9.src = ""; item10.src = ""
-            p8.textContent = ""; p9.textContent = ""; p10.textContent = ""
+            item8.src = ""; item9.src = ""; item10.src = ""; item11.src = ""; item12.src = ""; item13.src = ""
+            p8.textContent = ""; p9.textContent = ""; p10.textContent = ""; p11.textContent = ""; p12.textContent = ""; p13.textContent = ""
 
             updateDisplay("pismo")
 
@@ -462,27 +600,10 @@ document.querySelectorAll(".category-img").forEach((category) => {
             updateDisplay("barva")
         }
 
-        // On click - Sklodesky
-        if (categoryId == "item4" && !selectedMainCategory) {
-            formOverlaySklodesky.style.display = "block"
-            // Make original form draggable if not already initialized
-            if (!formSklodesky.hasAttribute('data-form-draggable')) {
-                makeFormDraggable(formSklodesky, formOverlaySklodesky)
-            }
-        }
-
-        // On click - Oprava
-        if (categoryId == "item5" && !selectedMainCategory) {
-            const opravaPat = `file://${location.pathname.replace(/script[\\\/]main\.js.*/, 'oprava.html')}`;
-                if (typeof dataString !== 'undefined' && dataString) {
-                    window.open(`oprava.html?data=${dataString}`, "_blank", "width=595");
-                } else {
-                    window.open("oprava.html", "_blank", "width=595");
-                }
-        }
         // Proceed back to main selection
         if (nextCategory == "main-selection") {
             restoreMainSelection();
+            AwaitingPrimarySelectionSchodyMaterial = true
         }
     });
 
@@ -496,6 +617,8 @@ formExit.forEach((exitBtn) => {
     exitBtn.addEventListener("click", () => {
         formOverlayNahrobky.style.display = "none"
         formOverlaySklodesky.style.display = "none"
+        formOverlaySchody.style.display = "none"
+        formOverlayParapety.style.display = "none"
     })
 })
 
@@ -605,7 +728,75 @@ pridatDalsi.forEach((pridatDalsiBtn) => {
             // -----------------------
 
             console.log("Added new form - Sklodesky")
-        }
+            }
+            // --- SCHODY ---
+            else if (formOverlaySchody && formOverlaySchody.style.display == "block") {
+                let formSchodyClone = formSchody.cloneNode(true)
+
+                const rect = formSchody.getBoundingClientRect()
+                const parentRect = formOverlaySchody.getBoundingClientRect()
+                const offset = 30 * (formSchodyNumber > 0 ? formSchodyNumber : 1)
+
+                formSchodyClone.style.left = (rect.left - parentRect.left + formOverlaySchody.scrollLeft + offset) + "px"
+                formSchodyClone.style.top  = (rect.top  - parentRect.top  + formOverlaySchody.scrollTop  + offset - 200) + "px"
+
+                formOverlaySchody.appendChild(formSchodyClone)
+
+                formSchodyNumber += 1
+                let formSchodyTitleClone = formSchodyClone.querySelector("#form-schody-title")
+                if (formSchodyTitleClone) formSchodyTitleClone.innerText = "Schody " + formSchodyNumber
+
+                formSchodyClone.querySelectorAll("button").forEach(btn => btn.style.display = "none")
+                formSchodyClone.querySelectorAll("input, textarea").forEach(el => {
+                    if (el.type === "checkbox" || el.type === "radio") el.checked = false
+                    else el.value = ""
+                })
+                formSchodyClone.querySelectorAll("select").forEach(s => s.selectedIndex = 0)
+                formSchodyClone.querySelectorAll(".log-text").forEach(el => el.innerText = "")
+
+                formSchodyClone.querySelectorAll("[id]").forEach(el => {
+                    if (el.id !== "form-schody-title") el.removeAttribute("id")
+                })
+                formSchodyClone.removeAttribute('data-form-draggable')
+
+                makeFormDraggable(formSchodyClone, formOverlaySchody)
+                formSchodyClone.style.transform = 'none'
+                console.log("Added new form - Schody")
+            }
+            // --- PARAPETY ---
+            else if (formOverlayParapety && formOverlayParapety.style.display == "block") {
+                let formParapetyClone = formParapety.cloneNode(true)
+
+                const rect = formParapety.getBoundingClientRect()
+                const parentRect = formOverlayParapety.getBoundingClientRect()
+                const offset = 30 * (formParapetyNumber > 0 ? formParapetyNumber : 1)
+
+                formParapetyClone.style.left = (rect.left - parentRect.left + formOverlayParapety.scrollLeft + offset) + "px"
+                formParapetyClone.style.top  = (rect.top  - parentRect.top  + formOverlayParapety.scrollTop  + offset - 200) + "px"
+
+                formOverlayParapety.appendChild(formParapetyClone)
+
+                formParapetyNumber += 1
+                let formParapetyTitleClone = formParapetyClone.querySelector("#form-parapety-title")
+                if (formParapetyTitleClone) formParapetyTitleClone.innerText = "Parapety " + formParapetyNumber
+
+                formParapetyClone.querySelectorAll("button").forEach(btn => btn.style.display = "none")
+                formParapetyClone.querySelectorAll("input, textarea").forEach(el => {
+                    if (el.type === "checkbox" || el.type === "radio") el.checked = false
+                    else el.value = ""
+                })
+                formParapetyClone.querySelectorAll("select").forEach(s => s.selectedIndex = 0)
+                formParapetyClone.querySelectorAll(".log-text").forEach(el => el.innerText = "")
+
+                formParapetyClone.querySelectorAll("[id]").forEach(el => {
+                    if (el.id !== "form-parapety-title") el.removeAttribute("id")
+                })
+                formParapetyClone.removeAttribute('data-form-draggable')
+
+                makeFormDraggable(formParapetyClone, formOverlayParapety)
+                formParapetyClone.style.transform = 'none'
+                console.log("Added new form - Parapety")
+            }
     })
 })
 
@@ -707,8 +898,8 @@ function restoreMainSelection() {
     updateDisplay("default")
     
     // Hide remnants of past categories
-    item5.src=""; item6.src=""; item7.src=""; item8.src=""; item9.src=""; item10.src="";
-    p5.textContent=""; p6.textContent=""; p7.textContent=""; p8.textContent=""; p9.textContent=""; p10.textContent="";
+    item8.src=""; item9.src=""; item10.src=""; item11.src=""; item12.src=""; item13.src="";
+    p8.textContent=""; p9.textContent=""; p10.textContent=""; p11.textContent=""; p12.textContent=""; p13.textContent="";
     
     categoryId = ""
 }
@@ -726,6 +917,9 @@ function clearSelection() {
     selectionNahrobekMaterial = null
     selectionPismo = null
     selectionNahrobekLog = null
+    selectionSchodyMaterialStupnice = null
+    selectionSchodyMaterialPodstupnice = null
+    selectionSchodyLog = null
 
     const allForms = document.querySelectorAll("#form-overlay-nahrobky form, #form-overlay-sklodesky form");
 
@@ -783,6 +977,11 @@ function delBtn(item, selection) {
         } else if (selectionLampyVazyMaterial.includes(selection)) {
             selectionLampyVazyMaterial.splice(selectionLampyVazyMaterial.indexOf(selection), 1)
             console.log("selection Lampy Vázy Material cleared")
+        } else if (selection === 'schody') {
+            selectionSchodyMaterialStupnice = null
+            selectionSchodyMaterialPodstupnice = null
+            selectionSchodyLog = null
+            console.log("selection Schody cleared")
         } else if (selection === selectionBarva) {
             selectionBarva = []
             console.log("selection Barva cleared")
@@ -821,6 +1020,10 @@ printRedirect.addEventListener("click", () => {
     const printData = {
         nahrobky: selectionNahrobek,
         nahrobkyMaterial: selectionNahrobekMaterial,
+        schody: {
+            stupnice: selectionSchodyMaterialStupnice,
+            podstupnice: selectionSchodyMaterialPodstupnice
+        },
         pismo: selectionPismo,
         lampyVazy: selectionLampyVazy,
         lampyVazyMaterial: selectionLampyVazyMaterial,

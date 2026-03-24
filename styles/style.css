@@ -184,12 +184,12 @@ header {
         border: 2px solid rgb(0, 0, 0);
         border-radius: 10px;
 
-        transition: all .3s;
+        transition: transform .22s ease, box-shadow .22s ease;
+        will-change: transform;
 
         &:hover {
-            margin-top: 15px;
-            height: 60%;
-            
+            transform: translateY(-6px);
+            box-shadow: 0 10px 18px rgba(0,0,0,0.12);
         }
 
         #repeat-btn {
@@ -348,17 +348,18 @@ main {
     .category {
         margin-top: calc(auto+50px);
         /* border: solid black 1px; */
+        width: 450px; /* Change in case of visual glithces from transition */
 
         & img {
             display: flex;
             margin: auto;
             max-width: 350px; max-height: 250px;
 
-            transition: all .5s;
-            
+            transition: transform .35s ease;
+            will-change: transform;
+
             &:hover {
-                max-width: 320px; max-height: 220px;
-                padding: 0 20px;
+                transform: scale(1.03) translateY(-4px);
             }
         }
 
