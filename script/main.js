@@ -149,20 +149,24 @@ let selectorSklodesky = document.getElementById("selector-sklodesky")
 
 
 //
-// Form buttons
-nahrobkyFormsBtn.addEventListener("click", () => {
-    formOverlayNahrobky.style.display = "block"
-    if (!formNahrobky.hasAttribute('data-form-draggable')) {
-        makeFormDraggable(formNahrobky, formOverlayNahrobky)
-    }
-})
+// Form buttons (guarded - some pages like print.html don't have these elements)
+if (nahrobkyFormsBtn) {
+    nahrobkyFormsBtn.addEventListener("click", () => {
+        if (formOverlayNahrobky) formOverlayNahrobky.style.display = "block"
+        if (formNahrobky && !formNahrobky.hasAttribute('data-form-draggable')) {
+            makeFormDraggable(formNahrobky, formOverlayNahrobky)
+        }
+    })
+}
 
-sklodeskyFormsBtn.addEventListener("click", () => {
-    formOverlaySklodesky.style.display = "block"
-    if (!formSklodesky.hasAttribute('data-form-draggable')) {
-        makeFormDraggable(formSklodesky, formOverlaySklodesky)
-    }
-})
+if (sklodeskyFormsBtn) {
+    sklodeskyFormsBtn.addEventListener("click", () => {
+        if (formOverlaySklodesky) formOverlaySklodesky.style.display = "block"
+        if (formSklodesky && !formSklodesky.hasAttribute('data-form-draggable')) {
+            makeFormDraggable(formSklodesky, formOverlaySklodesky)
+        }
+    })
+}
 
 // Get id of clicked category
 document.querySelectorAll(".category-img").forEach((category) => {
@@ -921,7 +925,7 @@ function clearSelection() {
     selectionSchodyMaterialPodstupnice = null
     selectionSchodyLog = null
 
-    const allForms = document.querySelectorAll("#form-overlay-nahrobky form, #form-overlay-sklodesky form");
+    const allForms = document.querySelectorAll("#form-overlay-nahrobky form, #form-overlay-sklodesky form, #form-overlay-schody form, #form-overlay-parapety form");
 
     allForms.forEach(form => {
         form.reset(); // This clears text inputs and unchecks checkboxes
@@ -1015,80 +1019,112 @@ function enableFormInput(checkbox) {
 
 const printRedirect = document.getElementById("print-btn")
 
+
 printRedirect.addEventListener("click", () => {
-    // Collect all selection data
-    const printData = {
-        nahrobky: selectionNahrobek,
-        nahrobkyMaterial: selectionNahrobekMaterial,
-        schody: {
-            stupnice: selectionSchodyMaterialStupnice,
-            podstupnice: selectionSchodyMaterialPodstupnice
-        },
-        pismo: selectionPismo,
-        lampyVazy: selectionLampyVazy,
-        lampyVazyMaterial: selectionLampyVazyMaterial,
-        barva: selectionBarva,
-        doplnek: selectionDoplnek,
-        doplnekMaterial: selectionDoplnekMaterial,
-        forms: {
-            nahrobky: [],
-            sklodesky: []
+// Collect all selection data
+const printData = {
+    nahrobky: selectionNahrobek,
+    nahrobkyMaterial: selectionNahrobekMaterial,
+    schody: {
+        stupnice: selectionSchodyMaterialStupnice,
+        podstupnice: selectionSchodyMaterialPodstupnice
+    },
+    parapety: selectionParapetyMaterial,
+    pismo: selectionPismo,
+    lampyVazy: selectionLampyVazy,
+    lampyVazyMaterial: selectionLampyVazyMaterial,
+    barva: selectionBarva,
+    doplnek: selectionDoplnek,
+    doplnekMaterial: selectionDoplnekMaterial,
+    forms: {
+        nahrobky: [],
+        sklodesky: [],
+        schody: [],
+        parapety: []
+    }
+}
+
+
+// Store printData for print-script.js
+localStorage.setItem("printSettings", JSON.stringify(printData));
+
+// Collect all nahrobky forms
+const nahrobkyForms = document.querySelectorAll("#form-overlay-nahrobky form")
+nahrobkyForms.forEach((form) => {
+    const rows = form.querySelectorAll(".row")
+    const formData = {
+        jmeno:    rows[0]?.querySelector("input")?.value || "",
+        prijmeni: rows[1]?.querySelector("input")?.value || "",
+        narozeni: rows[2]?.querySelector("input")?.value || "",
+        umrti:    rows[3]?.querySelector("input")?.value || "",
+        text:     form.querySelector(".form-text")?.value || "",
+        znak:     form.querySelector(".form-znak")?.value || "",
+        foto:     form.querySelector(".form-foto")?.value || "",
+        lesteni:  rows[7]?.querySelector("input[type='checkbox']")?.checked || false,
+        chodnicky: rows[8]?.querySelector("input[type='checkbox']")?.checked || false
+    }
+    printData.forms.nahrobky.push(formData)
+})
+
+// Collect all sklodesky forms
+const sklodeskuForms = document.querySelectorAll("#form-overlay-sklodesky form")
+sklodeskuForms.forEach((form) => {
+    const rows = form.querySelectorAll(".row")
+    // Robustly find the 'rozmer' input: prefer an input with id containing 'rozmer',
+    // otherwise search rows for a label that includes the word 'Rozměr'.
+    let rozmerVal = "";
+    const byId = form.querySelector("input[id*='rozmer']")
+    if (byId) {
+        rozmerVal = byId.value || "";
+    } else {
+        for (const r of rows) {
+            const lab = r.querySelector('label')
+            if (lab && /rozm/i.test(lab.textContent)) {
+                const inp = r.querySelector('input')
+                if (inp) { rozmerVal = inp.value || ""; break }
+            }
         }
     }
 
-    // Collect all nahrobky forms
-    const nahrobkyForms = document.querySelectorAll("#form-overlay-nahrobky form")
-    nahrobkyForms.forEach((form) => {
-        const rows = form.querySelectorAll(".row")
-        const formData = {
-            jmeno:    rows[0]?.querySelector("input")?.value || "",
-            prijmeni: rows[1]?.querySelector("input")?.value || "",
-            narozeni: rows[2]?.querySelector("input")?.value || "",
-            umrti:    rows[3]?.querySelector("input")?.value || "",
-            text:     form.querySelector(".form-text")?.value || "",
-            znak:     form.querySelector(".form-znak")?.value || "",
-            foto:     form.querySelector(".form-foto")?.value || "",
-            lesteni:  rows[7]?.querySelector("input[type='checkbox']")?.checked || false,
-            chodnicky: rows[8]?.querySelector("input[type='checkbox']")?.checked || false
-        }
-        printData.forms.nahrobky.push(formData)
-    })
-
-    // Collect all sklodesky forms
-    const sklodeskuForms = document.querySelectorAll("#form-overlay-sklodesky form")
-    sklodeskuForms.forEach((form) => {
-        const rows = form.querySelectorAll(".row")
-        // Robustly find the 'rozmer' input: prefer an input with id containing 'rozmer',
-        // otherwise search rows for a label that includes the word 'Rozměr'.
-        let rozmerVal = "";
-        const byId = form.querySelector("input[id*='rozmer']")
-        if (byId) {
-            rozmerVal = byId.value || "";
-        } else {
-            for (const r of rows) {
-                const lab = r.querySelector('label')
-                if (lab && /rozm/i.test(lab.textContent)) {
-                    const inp = r.querySelector('input')
-                    if (inp) { rozmerVal = inp.value || ""; break }
-                }
-            }
-        }
-
-        const formData = {
-            jmeno:    rows[0]?.querySelector("input")?.value || "",
-            prijmeni: rows[1]?.querySelector("input")?.value || "",
-            narozeni: rows[2]?.querySelector("input")?.value || "",
-            umrti:    rows[3]?.querySelector("input")?.value || "",
-            rozmer:   rozmerVal,
-            text:     form.querySelector(".form-text")?.value || "",
-            znak:     form.querySelector(".form-znak")?.value || "",
-            foto:     form.querySelector(".form-foto")?.value || ""
-        }
-        printData.forms.sklodesky.push(formData)
-    })
-
-    // --- IMPORTANT ://file workaround ----
-    const dataString = encodeURIComponent(JSON.stringify(printData));
-    window.open(`../TKamenictvi/print.html?data=${dataString}`, "_blank", "width=595");
+    const formData = {
+        jmeno:    rows[0]?.querySelector("input")?.value || "",
+        prijmeni: rows[1]?.querySelector("input")?.value || "",
+        narozeni: rows[2]?.querySelector("input")?.value || "",
+        umrti:    rows[3]?.querySelector("input")?.value || "",
+        rozmer:   rozmerVal,
+        text:     form.querySelector(".form-text")?.value || "",
+        znak:     form.querySelector(".form-znak")?.value || "",
+        foto:     form.querySelector(".form-foto")?.value || ""
+    }
+    printData.forms.sklodesky.push(formData)
 })
 
+
+// Collect all schody forms
+const schodyForms = document.querySelectorAll("#form-overlay-schody form")
+schodyForms.forEach((form) => {
+    const rows = form.querySelectorAll(".row")
+    const formData = {
+        rozmerStupnice: rows[0]?.querySelector("input")?.value || "",
+        rozmerPodstupnice: rows[1]?.querySelector("input")?.value || ""
+    }
+    printData.forms.schody.push(formData)
+})
+
+// Collect all parapety forms
+const parapetyForms = document.querySelectorAll("#form-overlay-parapety form")
+parapetyForms.forEach((form) => {
+    const rows = form.querySelectorAll(".row")
+    const formData = {
+        rozmer: rows[0]?.querySelector("input")?.value || "",
+        tloustka: rows[1]?.querySelector("input")?.value || "",
+        okapnicka: rows[2]?.querySelector("input[type='checkbox']")?.checked || false
+    }
+    printData.forms.parapety.push(formData)
+})
+    
+
+// --- IMPORTANT ://file workaround ----
+const dataString = encodeURIComponent(JSON.stringify(printData));
+window.open(`../TKamenictvi/print.html?data=${dataString}`, "_blank", "width=595");
+})

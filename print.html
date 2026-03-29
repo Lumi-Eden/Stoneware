@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doklad objednávky</title>
     <link rel="stylesheet" href="styles/print-style.css">
+    <script defer src="script/print-script.js"></script>
     <script defer src="script/main.js"></script>
-    <script src="script/print-script.js"></script>
 </head>
 <body>
     <header>
@@ -20,17 +20,45 @@
         <div id="polozky">
  
             <!-- NÁHROBKY -->
-            <div class="section-row">
-                <span">Náhrobky:</span>
-                <p id="nahrobky-imported"></p>
+            <div id="section-nahrobky">
+                <div class="section-row">
+                    <span>Náhrobky:</span>
+                    <p id="nahrobky-imported"></p>
+                </div>
+                <div id="nahrobky-forms"></div>
             </div>
-            <div id="nahrobky-forms"></div>
- 
+            
             <!-- SKLODESKY -->
-            <div class="section-row">
-                <span>Sklodesky:</span>
+            <div id="section-sklodesky">
+                <div class="section-row">
+                    <span>Sklodesky:</span>
+                </div>
+                <div id="sklodesky-forms"></div>
             </div>
-            <div id="sklodesky-forms"></div>
+            
+            <!-- SCHODY -->
+            <div id="section-schody">
+                <div class="section-row">
+                    <span>Schody:</span>
+                </div>
+                <div class="section-row">
+                    <span>Materiál:</span>
+                    <p id="schody-imported"></p>
+                </div>
+                <div id="schody-forms"></div>
+            </div>
+            
+            <!-- PARAPETY -->
+            <div id="section-parapety">
+                <div class="section-row">
+                    <span>Parapety:</span>
+                </div>
+                <div class="section-row">
+                    <span>Materiál:</span>
+                    <p id="parapety-imported"></p>
+                </div>
+                <div id="parapety-forms"></div>
+            </div>
  
             <div style="grid-column: 1 / -1; display: flex; gap: 20px;">
                 <!-- DOPLŇKY -->

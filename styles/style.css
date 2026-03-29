@@ -69,7 +69,7 @@ body {
 
     transition: all;
 
-    #form-nahrobky, #form-sklodesky {
+    #form-nahrobky, #form-sklodesky, #form-schody, #form-parapety {
         position: absolute;
 
         display: grid;
@@ -108,6 +108,15 @@ body {
             width: auto; height: 40px;
             border-bottom: 1px white solid;
         }
+    }
+
+    #form-schody label {
+        line-height: 14px;
+    }
+
+    #form-parapety input[type="checkbox"] {
+        grid-column: 3;
+        justify-self: left;
     }
 
     form .row {

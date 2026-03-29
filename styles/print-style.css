@@ -265,3 +265,47 @@ main > input[type="text"]:not(#poznamky-input) {
     font-weight: bold;
     font-size: 15px;
 }
+
+/* Update the item layout to prevent clipping */
+#polozky, header {
+    grid-template-columns: 140px 1fr !important; /* Increased from 110px to 140px */
+    gap: 10px 30px !important; /* Increased horizontal gap to 30px */
+}
+
+/* Ensure the material text has breathing room */
+#polozky > p, 
+#polozky ul > li p, 
+#nahrobky-imported, 
+#schody-imported, 
+#parapety-imported {
+    padding-left: 5px;
+    line-height: 1.5;
+}
+
+/* Force major sections to stack vertically instead of side-by-side */
+#section-nahrobky, 
+#section-sklodesky, 
+#section-schody, 
+#section-parapety {
+    grid-column: 1 / -1; /* Take up both columns of the main grid */
+    width: 100%;
+    margin-bottom: 30px; /* Big gap between sections */
+    display: block; 
+}
+
+/* Ensure the Material row inside these sections stays a simple two-column layout */
+.section-row {
+    display: grid;
+    grid-template-columns: 120px 1fr; /* Label gets 120px, value gets the rest */
+    gap: 10px;
+    align-items: start;
+    margin-bottom: 10px;
+}
+
+/* Make sure the form blocks (Schody 1, Parapet 1) stay below the material */
+#schody-forms, #parapety-forms {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 10px;
+}
