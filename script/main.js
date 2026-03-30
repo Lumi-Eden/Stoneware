@@ -821,6 +821,15 @@ pridatDalsi.forEach((pridatDalsiBtn) => {
 // Functions
 // ------------ 
 
+// Repeat button spin animation
+const repeatBtn = document.getElementById("repeat-btn")
+repeatBtn.addEventListener("click", () => {
+    repeatBtn.classList.add("is-spinning")
+    setTimeout(() => {
+        repeatBtn.classList.remove("is-spinning")
+    }, 500);
+})
+
 // Make individual forms draggable by their handle
 function makeFormDraggable(form, overlay) {
     const handle = form.querySelector('.handle')

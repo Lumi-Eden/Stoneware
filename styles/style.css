@@ -61,6 +61,15 @@ body {
     }
 }
 
+@keyframes anim-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .form-overlay {
     /* display: block; <-- change to this */
     position: fixed;
@@ -209,6 +218,10 @@ header {
             cursor: pointer;
         }
 
+        .is-spinning {
+            animation: anim-spin 1s linear forwards;
+        }
+
         #search-field {
             background-color: rgba(255, 255, 255, 0.0);
             width: 95%;
@@ -240,6 +253,10 @@ header {
             margin: auto 8px auto 12px;
             width: 35px; height: 35px;
             cursor: pointer;
+        }
+
+        img:hover {
+            opacity: 0.7;
         }
     }
 }
