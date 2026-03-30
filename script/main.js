@@ -30,6 +30,8 @@ let selectionParapetyLog = null
 // Forms
 const nahrobkyFormsBtn = document.getElementById("nahrobky-forms-btn")
 const sklodeskyFormsBtn = document.getElementById("sklodesky-forms-btn")
+const schodyFormsBtn = document.getElementById("schody-forms-btn")
+const parapetyFormsBtn = document.getElementById("parapety-forms-btn")
 
 const formOverlay = document.querySelectorAll(".form-overlay")
 const formOverlayNahrobky = document.getElementById("form-overlay-nahrobky")
@@ -86,8 +88,8 @@ const categoryData = {
         p: ["Typ-A", "Typ-B", "Typ-C", "Typ-D", "Typ-E", "Typ-F"]
     },
     materialy: {
-        images: ["img/polozky/zula/antas.png", "img/polozky/zula/aurora.png", "img/polozky/zula/grey.png", "img/polozky/zula/impala-nero.png", "img/polozky/zula/labrador-blue-pearl.png", "img/polozky/zula/orion.png", "img/polozky/zula/paradiso.png", "img/polozky/zula/sardo.png", "img/polozky/zula/tarn.png", "img/polozky/zula/absolute-black.png", "img/polozky/zula/cinza-opalovana.jpg", "img/polozky/zula/impala-nero-opalovana.jpg", "img/polozky/zula/premium-black.jpg"],
-        p: ["Antas", "Aurora", "Grey", "Impala Nero", "Labrador Blue Pearl", "Orion", "Paradiso", "Sardo", "Tarn", "Absolute Black", "Cinza Opalovaná", "Impala Nero Opalovaná", "Premium Black"]
+        images: ["img/polozky/zula/antas.png", "img/polozky/zula/aurora.png", "img/polozky/zula/grey.png", "img/polozky/zula/impala-nero.png", "img/polozky/zula/impala-nero-opalovana.jpg", "img/polozky/zula/labrador-blue-pearl.png", "img/polozky/zula/orion.png", "img/polozky/zula/paradiso.png", "img/polozky/zula/sardo.png", "img/polozky/zula/tarn.png", "img/polozky/zula/cinza-opalovana.jpg", "img/polozky/zula/absolute-black.png", "img/polozky/zula/premium-black.jpg"],
+        p: ["Antas", "Aurora", "Grey", "Impala Nero", "Impala Nero Opalovaná", "Labrador Blue Pearl", "Orion", "Paradiso", "Sardo", "Tarn", "Cinza Opalovaná", "Absolute Black", "Premium Black"]
     },
     pismo: {
         images: ["img/polozky/font/caslon-regular.png", "img/polozky/font/caslon-bold.png", "img/polozky/font/bangkok-regular.png", "img/polozky/font/monotype-corsiva.png", "img/polozky/font/alternate-g.png", "img/polozky/font/balantines-script.png", "img/polozky/font/balantines-bold.png"],
@@ -140,13 +142,6 @@ let p11 = document.getElementById("p11")
 let p12 = document.getElementById("p12")
 let p13 = document.getElementById("p13")
 
-//
-// Selectors
-let selectorNahrobky = document.getElementById("selector-nahrobky")
-let selectorLampyVazy = document.getElementById("selector-lampy-vazy")
-let selectorDoplnky = document.getElementById("selector-doplnky")
-let selectorSklodesky = document.getElementById("selector-sklodesky")
-
 
 //
 // Form buttons (guarded - some pages like print.html don't have these elements)
@@ -164,6 +159,24 @@ if (sklodeskyFormsBtn) {
         if (formOverlaySklodesky) formOverlaySklodesky.style.display = "block"
         if (formSklodesky && !formSklodesky.hasAttribute('data-form-draggable')) {
             makeFormDraggable(formSklodesky, formOverlaySklodesky)
+        }
+    })
+}
+
+if (schodyFormsBtn) {
+    schodyFormsBtn.addEventListener("click", () => {
+        if (formOverlaySchody) formOverlaySchody.style.display = "block"
+        if (formSchody && !formSchody.hasAttribute('data-form-draggable')) {
+            makeFormDraggable(formSchody, formOverlaySchody)
+        }
+    })
+}
+
+if (parapetyFormsBtn) {
+    parapetyFormsBtn.addEventListener("click", () => {
+        if (formOverlayParapety) formOverlayParapety.style.display = "block"
+        if (formParapety && !formParapety.hasAttribute('data-form-draggable')) {
+            makeFormDraggable(formParapety, formOverlayParapety)
         }
     })
 }
@@ -236,14 +249,14 @@ document.querySelectorAll(".category-img").forEach((category) => {
                     item2: "Aurora",
                     item3: "Grey",
                     item4: "Impala N.",
-                    item5: "Labrador-BP.",
-                    item6: "Orion",
-                    item7: "Paradiso",
-                    item8: "Sardo",
-                    item9: "Tarn",
-                    item10: "Abs. Black",
+                    item5: "Impala Nero. Opal.",
+                    item6: "Labrador-BP.",
+                    item7: "Orion",
+                    item8: "Paradiso",
+                    item9: "Sardo",
+                    item10: "Tarn",
                     item11: "Cinza Opal.",
-                    item12: "Impala Nero Opal.",
+                    item12: "Abs. Black",
                     item13: "Premium Black"
                 }
 

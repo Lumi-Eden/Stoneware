@@ -3,7 +3,9 @@
     --stone-blue: rgb(135, 158, 169);
 
     /* background-color: rgb(255, 255, 255); */
-    background-image: url("../img/var4.jpg");
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),
+        url("../img/var4.jpg");
     background-repeat: no-repeat;
     background-size: cover;
 
@@ -240,18 +242,6 @@ header {
             cursor: pointer;
         }
     }
-
-    & button {
-        width: 80px; height: 40px;
-        margin: auto; margin-right: 20px;
-
-        border: 2px solid black;
-        border-radius: 10px;
-
-        cursor: pointer;
-
-        animation: 1s cubic-bezier(0, 0.9, 0.3, 1) 0s 1 headerSlideIn
-    }
 }
 
 #categories-selector {
@@ -260,6 +250,7 @@ header {
     margin-top: 20px; margin-left: 25px;
     width: 175px;
     padding: 0 20px 15px 20px;
+    border: 2px solid rgb(0, 0, 0);
 
     background: #a9a9a980;
     background: linear-gradient(0deg, rgba(169, 169, 169, 0.75) 0%, rgba(255, 255, 255, 0.75) 100%);
@@ -267,8 +258,6 @@ header {
     border-radius: 10px;
 
     overflow: hidden;
-    border: solid black 0px;
-    border-left: 0;
 
     animation: 1s cubic-bezier(0.19, 1, 0.22, 1) 0s 1 asideSlideIn;
 
@@ -307,6 +296,8 @@ header {
     float: left;
     width: 175px; height: 25rem;
     bottom: 0px; left: 25px;
+
+    border: 2px solid rgb(0, 0, 0);
 
     background: #a9a9a980;
     background: linear-gradient(0deg, rgba(169, 169, 169, 0.75) 0%, rgba(255, 255, 255, 0.75) 100%);
@@ -380,4 +371,17 @@ main {
             cursor: pointer;
         }
     }
+
+    /* Used to be used for form buttons - outdated now */
+    /* & button {
+        width: 80px; height: 40px;
+        margin: auto; margin-right: 20px;
+
+        border: 2px solid black;
+        border-radius: 10px;
+
+        cursor: pointer;
+
+        animation: 1s cubic-bezier(0, 0.9, 0.3, 1) 0s 1 headerSlideIn
+    } */
 }
