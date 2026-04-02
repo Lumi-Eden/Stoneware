@@ -1,3 +1,7 @@
+// ELECTRON
+const { ipcRenderer } = require('electron');
+
+// Variables
 let selectionLog = document.getElementById("selection-log")
 
 let selectedMainCategory = false
@@ -88,8 +92,8 @@ const categoryData = {
         p: ["Typ-A", "Typ-B", "Typ-C", "Typ-D", "Typ-E", "Typ-F"]
     },
     materialy: {
-        images: ["img/polozky/zula/antas.png", "img/polozky/zula/aurora.png", "img/polozky/zula/grey.png", "img/polozky/zula/impala-nero.png", "img/polozky/zula/impala-nero-opalovana.jpg", "img/polozky/zula/labrador-blue-pearl.png", "img/polozky/zula/orion.png", "img/polozky/zula/paradiso.png", "img/polozky/zula/sardo.png", "img/polozky/zula/tarn.png", "img/polozky/zula/cinza-opalovana.jpg", "img/polozky/zula/absolute-black.png", "img/polozky/zula/premium-black.jpg"],
-        p: ["Antas", "Aurora", "Grey", "Impala Nero", "Impala Nero Opalovaná", "Labrador Blue Pearl", "Orion", "Paradiso", "Sardo", "Tarn", "Cinza Opalovaná", "Absolute Black", "Premium Black"]
+        images: ["img/polozky/zula/antas.png", "img/polozky/zula/aurora.png", "img/polozky/zula/grey.png", "img/polozky/zula/impala-nero.png", "img/polozky/zula/labrador-blue-pearl.png", "img/polozky/zula/orion.png", "img/polozky/zula/paradiso.png", "img/polozky/zula/sardo.png", "img/polozky/zula/tarn.png", "img/polozky/zula/impala-nero-opalovana.jpg", "img/polozky/zula/cinza-opalovana.jpg", "img/polozky/zula/absolute-black.png", "img/polozky/zula/premium-black.jpg"],
+        p: ["Antas", "Aurora", "Grey", "Impala Nero", "Labrador Blue Pearl", "Orion", "Paradiso", "Sardo", "Tarn", "Impala Nero Opalovaná", "Cinza Opalovaná", "Absolute Black", "Premium Black"]
     },
     pismo: {
         images: ["img/polozky/font/caslon-regular.png", "img/polozky/font/caslon-bold.png", "img/polozky/font/bangkok-regular.png", "img/polozky/font/monotype-corsiva.png", "img/polozky/font/alternate-g.png", "img/polozky/font/balantines-script.png", "img/polozky/font/balantines-bold.png"],
@@ -249,12 +253,12 @@ document.querySelectorAll(".category-img").forEach((category) => {
                     item2: "Aurora",
                     item3: "Grey",
                     item4: "Impala N.",
-                    item5: "Impala Nero. Opal.",
-                    item6: "Labrador-BP.",
-                    item7: "Orion",
-                    item8: "Paradiso",
-                    item9: "Sardo",
-                    item10: "Tarn",
+                    item5: "Labrador-BP.",
+                    item6: "Orion",
+                    item7: "Paradiso",
+                    item8: "Sardo",
+                    item9: "Tarn",
+                    item10: "Impala Nero. Opal.",
                     item11: "Cinza Opal.",
                     item12: "Abs. Black",
                     item13: "Premium Black"
@@ -279,18 +283,17 @@ document.querySelectorAll(".category-img").forEach((category) => {
                             if (selectionSchodyLog) appendSelectionText(selectionSchodyLog, selectionSchodyMaterialStupnice)
                             AwaitingPrimarySelectionSchodyMaterial = false
                         } else {
-                                selectionSchodyMaterialPodstupnice = selectedMaterial
-                                console.log("Materiál pro podstupnici zvolen: ", selectionSchodyMaterialPodstupnice)
-                                if (selectionSchodyLog) appendSelectionText(selectionSchodyLog, selectionSchodyMaterialPodstupnice)
-                                AwaitingPrimarySelectionSchodyMaterial = true
-
-                                // Open Schody form when both materials selected
-                                if (formOverlaySchody) {
-                                    formOverlaySchody.style.display = "block"
-                                    if (!formSchody.hasAttribute('data-form-draggable')) {
-                                        makeFormDraggable(formSchody, formOverlaySchody)
-                                    }
-                                }
+                            selectionSchodyMaterialPodstupnice = selectedMaterial
+                            console.log("Materiál pro podstupnici zvolen: ", selectionSchodyMaterialPodstupnice)
+                            if (selectionSchodyLog) appendSelectionText(selectionSchodyLog, selectionSchodyMaterialPodstupnice)
+                            AwaitingPrimarySelectionSchodyMaterial = true
+                        }
+                        // Open Schody form when a material selected
+                        if (formOverlaySchody) {
+                            formOverlaySchody.style.display = "block"
+                            if (!formSchody.hasAttribute('data-form-draggable')) {
+                                makeFormDraggable(formSchody, formOverlaySchody)
+                            }
                         }
 
                     } else if (selectedMainCategory === "parapety") {
@@ -1043,110 +1046,113 @@ const printRedirect = document.getElementById("print-btn")
 
 
 printRedirect.addEventListener("click", () => {
-// Collect all selection data
-const printData = {
-    nahrobky: selectionNahrobek,
-    nahrobkyMaterial: selectionNahrobekMaterial,
-    schody: {
-        stupnice: selectionSchodyMaterialStupnice,
-        podstupnice: selectionSchodyMaterialPodstupnice
-    },
-    parapety: selectionParapetyMaterial,
-    pismo: selectionPismo,
-    lampyVazy: selectionLampyVazy,
-    lampyVazyMaterial: selectionLampyVazyMaterial,
-    barva: selectionBarva,
-    doplnek: selectionDoplnek,
-    doplnekMaterial: selectionDoplnekMaterial,
-    forms: {
-        nahrobky: [],
-        sklodesky: [],
-        schody: [],
-        parapety: []
-    }
-}
-
-
-// Store printData for print-script.js
-localStorage.setItem("printSettings", JSON.stringify(printData));
-
-// Collect all nahrobky forms
-const nahrobkyForms = document.querySelectorAll("#form-overlay-nahrobky form")
-nahrobkyForms.forEach((form) => {
-    const rows = form.querySelectorAll(".row")
-    const formData = {
-        jmeno:    rows[0]?.querySelector("input")?.value || "",
-        prijmeni: rows[1]?.querySelector("input")?.value || "",
-        narozeni: rows[2]?.querySelector("input")?.value || "",
-        umrti:    rows[3]?.querySelector("input")?.value || "",
-        text:     form.querySelector(".form-text")?.value || "",
-        znak:     form.querySelector(".form-znak")?.value || "",
-        foto:     form.querySelector(".form-foto")?.value || "",
-        lesteni:  rows[7]?.querySelector("input[type='checkbox']")?.checked || false,
-        chodnicky: rows[8]?.querySelector("input[type='checkbox']")?.checked || false
-    }
-    printData.forms.nahrobky.push(formData)
-})
-
-// Collect all sklodesky forms
-const sklodeskuForms = document.querySelectorAll("#form-overlay-sklodesky form")
-sklodeskuForms.forEach((form) => {
-    const rows = form.querySelectorAll(".row")
-    // Robustly find the 'rozmer' input: prefer an input with id containing 'rozmer',
-    // otherwise search rows for a label that includes the word 'Rozměr'.
-    let rozmerVal = "";
-    const byId = form.querySelector("input[id*='rozmer']")
-    if (byId) {
-        rozmerVal = byId.value || "";
-    } else {
-        for (const r of rows) {
-            const lab = r.querySelector('label')
-            if (lab && /rozm/i.test(lab.textContent)) {
-                const inp = r.querySelector('input')
-                if (inp) { rozmerVal = inp.value || ""; break }
-            }
+    // Collect all selection data
+    const printData = {
+        nahrobky: selectionNahrobek,
+        nahrobkyMaterial: selectionNahrobekMaterial,
+        schody: {
+            stupnice: selectionSchodyMaterialStupnice,
+            podstupnice: selectionSchodyMaterialPodstupnice
+        },
+        parapety: selectionParapetyMaterial,
+        pismo: selectionPismo,
+        lampyVazy: selectionLampyVazy,
+        lampyVazyMaterial: selectionLampyVazyMaterial,
+        barva: selectionBarva,
+        doplnek: selectionDoplnek,
+        doplnekMaterial: selectionDoplnekMaterial,
+        forms: {
+            nahrobky: [],
+            sklodesky: [],
+            schody: [],
+            parapety: []
         }
     }
 
-    const formData = {
-        jmeno:    rows[0]?.querySelector("input")?.value || "",
-        prijmeni: rows[1]?.querySelector("input")?.value || "",
-        narozeni: rows[2]?.querySelector("input")?.value || "",
-        umrti:    rows[3]?.querySelector("input")?.value || "",
-        rozmer:   rozmerVal,
-        text:     form.querySelector(".form-text")?.value || "",
-        znak:     form.querySelector(".form-znak")?.value || "",
-        foto:     form.querySelector(".form-foto")?.value || ""
-    }
-    printData.forms.sklodesky.push(formData)
-})
+
+    // Store printData for print-script.js
+    localStorage.setItem("printSettings", JSON.stringify(printData));
+
+    // Collect all nahrobky forms
+    const nahrobkyForms = document.querySelectorAll("#form-overlay-nahrobky form")
+    nahrobkyForms.forEach((form) => {
+        const rows = form.querySelectorAll(".row")
+        const formData = {
+            jmeno:    rows[0]?.querySelector("input")?.value || "",
+            prijmeni: rows[1]?.querySelector("input")?.value || "",
+            narozeni: rows[2]?.querySelector("input")?.value || "",
+            umrti:    rows[3]?.querySelector("input")?.value || "",
+            text:     form.querySelector(".form-text")?.value || "",
+            znak:     form.querySelector(".form-znak")?.value || "",
+            foto:     form.querySelector(".form-foto")?.value || "",
+            lesteni:  rows[7]?.querySelector("input[type='checkbox']")?.checked || false,
+            chodnicky: rows[8]?.querySelector("input[type='checkbox']")?.checked || false
+        }
+        printData.forms.nahrobky.push(formData)
+    })
+
+    // Collect all sklodesky forms
+    const sklodeskuForms = document.querySelectorAll("#form-overlay-sklodesky form")
+    sklodeskuForms.forEach((form) => {
+        const rows = form.querySelectorAll(".row")
+        // Robustly find the 'rozmer' input: prefer an input with id containing 'rozmer',
+        // otherwise search rows for a label that includes the word 'Rozměr'.
+        let rozmerVal = "";
+        const byId = form.querySelector("input[id*='rozmer']")
+        if (byId) {
+            rozmerVal = byId.value || "";
+        } else {
+            for (const r of rows) {
+                const lab = r.querySelector('label')
+                if (lab && /rozm/i.test(lab.textContent)) {
+                    const inp = r.querySelector('input')
+                    if (inp) { rozmerVal = inp.value || ""; break }
+                }
+            }
+        }
+
+        const formData = {
+            jmeno:    rows[0]?.querySelector("input")?.value || "",
+            prijmeni: rows[1]?.querySelector("input")?.value || "",
+            narozeni: rows[2]?.querySelector("input")?.value || "",
+            umrti:    rows[3]?.querySelector("input")?.value || "",
+            rozmer:   rozmerVal,
+            text:     form.querySelector(".form-text")?.value || "",
+            znak:     form.querySelector(".form-znak")?.value || "",
+            foto:     form.querySelector(".form-foto")?.value || ""
+        }
+        printData.forms.sklodesky.push(formData)
+    })
 
 
-// Collect all schody forms
-const schodyForms = document.querySelectorAll("#form-overlay-schody form")
-schodyForms.forEach((form) => {
-    const rows = form.querySelectorAll(".row")
-    const formData = {
-        rozmerStupnice: rows[0]?.querySelector("input")?.value || "",
-        rozmerPodstupnice: rows[1]?.querySelector("input")?.value || ""
-    }
-    printData.forms.schody.push(formData)
-})
+    // Collect all schody forms
+    const schodyForms = document.querySelectorAll("#form-overlay-schody form")
+    schodyForms.forEach((form) => {
+        const rows = form.querySelectorAll(".row")
+        const formData = {
+            rozmerStupnice: rows[0]?.querySelector("input")?.value || "",
+            rozmerPodstupnice: rows[1]?.querySelector("input")?.value || ""
+        }
+        printData.forms.schody.push(formData)
+    })
 
-// Collect all parapety forms
-const parapetyForms = document.querySelectorAll("#form-overlay-parapety form")
-parapetyForms.forEach((form) => {
-    const rows = form.querySelectorAll(".row")
-    const formData = {
-        rozmer: rows[0]?.querySelector("input")?.value || "",
-        tloustka: rows[1]?.querySelector("input")?.value || "",
-        okapnicka: rows[2]?.querySelector("input[type='checkbox']")?.checked || false
-    }
-    printData.forms.parapety.push(formData)
-})
-    
+    // Collect all parapety forms
+    const parapetyForms = document.querySelectorAll("#form-overlay-parapety form")
+    parapetyForms.forEach((form) => {
+        const rows = form.querySelectorAll(".row")
+        const formData = {
+            rozmer: rows[0]?.querySelector("input")?.value || "",
+            tloustka: rows[1]?.querySelector("input")?.value || "",
+            okapnicka: rows[2]?.querySelector("input[type='checkbox']")?.checked || false
+        }
+        printData.forms.parapety.push(formData)
+    })
 
-// --- IMPORTANT ://file workaround ----
-const dataString = encodeURIComponent(JSON.stringify(printData));
-window.open(`../TKamenictvi/print.html?data=${dataString}`, "_blank", "height=1280");
+    // --- IMPORTANT ://file workaround ----
+    const dataString = JSON.stringify(printData);
+    ipcRenderer.send('open-print-page', dataString)
+
+    // window.open(`./print.html?data=${dataString}`, "_blank", "height=1280"); -- left in case of fix not working
+
+
 })

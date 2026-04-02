@@ -257,6 +257,7 @@ main > input[type="text"]:not(#poznamky-input) {
     position: fixed;
     bottom: 30px; left: 35px;
     width: 135px; height: 125px;
+    z-index: -1;
 }
 
 #podpis {
