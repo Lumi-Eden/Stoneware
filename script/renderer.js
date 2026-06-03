@@ -83,8 +83,8 @@ let categoryId
 
 const categoryData = {
     default: {
-        images: ["img/polozky/desky/typ-A.png", "img/polozky/lampy-vazy/lampa-zula1.png", "img/polozky/doplnky/srdce.png", "img/polozky/foto/sklodeska.png","img/polozky/schody.png", "img/polozky/parapety.png", "img/polozky/oprava.png"],
-        p: ["Náhrobky", "Lampy a Vázy", "Doplňky", "Sklodesky", "Schody", "Parapety", "Oprava"]
+        images: ["img/polozky/desky/typ-A.png", "img/polozky/lampy-vazy/lampa-zula1.png", "img/polozky/doplnky/srdce.png", "img/polozky/foto/sklodeska.png","img/polozky/schody.png", "img/polozky/parapety.png", "img/polozky/Aa-pismo.png", "img/polozky/oprava.png"],
+        p: ["Náhrobky", "Lampy a Vázy", "Doplňky", "Sklodesky", "Schody", "Parapety", "Písmo", "Oprava"]
     },
 
     nahrobky: {
@@ -147,7 +147,7 @@ let p12 = document.getElementById("p12")
 let p13 = document.getElementById("p13")
 
 
-//
+// ---------------------------------------------------------------------------
 // Form buttons (guarded - some pages like print.html don't have these elements)
 if (nahrobkyFormsBtn) {
     nahrobkyFormsBtn.addEventListener("click", () => {
@@ -184,6 +184,7 @@ if (parapetyFormsBtn) {
         }
     })
 }
+// ---------------------------------------------------------------------------
 
 // Get id of clicked category
 document.querySelectorAll(".category-img").forEach((category) => {
@@ -316,7 +317,13 @@ document.querySelectorAll(".category-img").forEach((category) => {
                     }
 
                     if (selectedMainCategory === "nahrobky") {
-                        nextCategory = "pismo"
+                        nextCategory = "main-selection"
+
+                        formOverlayNahrobky.style.display = "block"
+                        // Make original form draggable if not already initialized
+                        if (!formNahrobky.hasAttribute('data-form-draggable')) {
+                            makeFormDraggable(formNahrobky, formOverlayNahrobky)
+                        }
 
                     } else if (AwaitingPrimarySelectionSchodyMaterial === false) {
                         nextCategory = "materialy"
@@ -347,11 +354,7 @@ document.querySelectorAll(".category-img").forEach((category) => {
                     if (selectionNahrobekLog) appendSelectionText(selectionNahrobekLog, selectedPismo)
                 }
 
-                formOverlayNahrobky.style.display = "block"
-                // Make original form draggable if not already initialized
-                if (!formNahrobky.hasAttribute('data-form-draggable')) {
-                    makeFormDraggable(formNahrobky, formOverlayNahrobky)
-                }
+                
                 
                 nextCategory = "main-selection"
             }
@@ -489,8 +492,8 @@ document.querySelectorAll(".category-img").forEach((category) => {
             categoryId = ""
 
             // Hide remnants of prev category
-            item7.src = ""
-            p7.textContent = ""
+            item7.src = ""; item8.src = "";
+            p7.textContent = ""; p8.textContent = "";
         }
 
         // Show category Lampy Vázy
@@ -534,6 +537,7 @@ document.querySelectorAll(".category-img").forEach((category) => {
             categoryId = "" // Might cause issues - to be tested
         }
 
+        // Show category Schody
         if (categoryId == "item5" && !selectedMainCategory) {
             console.log("Category 'Schody' loading...")
             currentlySelectedCategory = "schody"
@@ -554,6 +558,7 @@ document.querySelectorAll(".category-img").forEach((category) => {
             categoryId = ""
         }
 
+        // Show category Parapety
         if (categoryId === "item6" && !selectedMainCategory) {
             console.log("Category 'Schody' loading...")
             currentlySelectedCategory = "parapety"
@@ -574,13 +579,28 @@ document.querySelectorAll(".category-img").forEach((category) => {
             categoryId = ""
         }
 
-        // Show print Oprava
+        // Show category Pismo
         if (categoryId == "item7" && !selectedMainCategory) {
+            console.log("Category 'Písmo' loading...")
+            currentlySelectedCategory = "pismo"
+            selectedMainCategory = "pismo"
+
+            // Hide remnants of prev category
+            item8.src = "";
+            p8.textContent = "";
+
+            updateDisplay("pismo")
+
+            categoryId = ""
+        }
+
+        // Show print Oprava
+        if (categoryId == "item8" && !selectedMainCategory) {
             const opravaPat = `file://${location.pathname.replace(/script[\\\/]main\.js.*/, 'oprava.html')}`;
             if (typeof dataString !== 'undefined' && dataString) {
-                window.open(`oprava.html?data=${dataString}`, "_blank", "width=595");
+                window.open(`oprava.html?data=${dataString}`, "_blank", "width=1000");
             } else {
-                window.open("oprava.html", "_blank", "width=595");
+                window.open("oprava.html", "_blank", "width=1000");
             }
         }
 
@@ -927,8 +947,8 @@ function restoreMainSelection() {
     updateDisplay("default")
     
     // Hide remnants of past categories
-    item8.src=""; item9.src=""; item10.src=""; item11.src=""; item12.src=""; item13.src="";
-    p8.textContent=""; p9.textContent=""; p10.textContent=""; p11.textContent=""; p12.textContent=""; p13.textContent="";
+    item9.src=""; item10.src=""; item11.src=""; item12.src=""; item13.src="";
+    p9.textContent=""; p10.textContent=""; p11.textContent=""; p12.textContent=""; p13.textContent="";
     
     categoryId = ""
 }

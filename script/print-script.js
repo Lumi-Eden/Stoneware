@@ -1,3 +1,15 @@
+// Saving the header
+// jmenoZakaznika = document.getElementById("jmeno-zakaznika");
+// tel = document.getElementById("tel");
+// misto = document.getElementById("misto")
+
+// function saveInputToMainPage(InputField) {
+
+// }
+
+// ---------------------------
+// Imported data management
+// ---------------------------
 // Storing the input as a value for saving of file
 const inputs = document.querySelectorAll("input, textarea")
 inputs.forEach(input => {
