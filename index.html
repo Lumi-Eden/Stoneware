@@ -20,7 +20,6 @@
             <div class="row"><label for="form-prijmeni">Příjmení</label> <input type="text" id="form-prijmeni"></div>
             <div class="row"><label for="form-narozeni">☆</label> <input type="text" id="form-narozeni"></div>
             <div class="row"><label for="form-umrti">†</label> <input type="text" id="form-umrti"></div>
-            <div class="row"><input type="checkbox" class="form-text-check" onclick="enableFormInput(this)"> <label for="form-text">Libovolný text</label><input type="text" class="form-text"></div>
             <div class="row"><input type="checkbox" class="form-znak-check" onclick="enableFormInput(this)"> <label for="form-znak">Znak</label><input type="text" class="form-znak"></div>
             <div class="row"><input type="checkbox" class="form-foto-check" onclick="enableFormInput(this)"> <label for="foto">Foto</label><input type="text" class="form-foto"></div>
             <div class="row"><input type="checkbox" id="form-lesteni-check"> <label for="form-lesteni-check">Leštění zezadu</label></div>
@@ -65,9 +64,30 @@
             <div class="row"><label for="form-narozeni">☆</label> <input type="text" id="form-narozeni"></div>
             <div class="row"><label for="form-umrti">†</label> <input type="text" id="form-umrti"></div>
             <div class="row"><label for="form-rozmer">Rozměr</label> <input type="text" id="form-rozmer"></div>
-            <div class="row"><input type="checkbox" class="form-text-check" onclick="enableFormInput(this)"> <label for="form-text">Libovolný text</label><input type="text" class="form-text"></div>
             <div class="row"><input type="checkbox" class="form-znak-check" onclick="enableFormInput(this)"> <label for="form-znak">Znak</label><input type="text" class="form-znak"></div>
             <div class="row"><input type="checkbox" class="form-foto-check" onclick="enableFormInput(this)"> <label for="foto">Foto</label><input type="text" class="form-foto"></div>
+            <button type="button" class="pridat-dalsi">Přidat Další</button>
+        </form>
+    </div>
+
+    <div class="form-overlay" id="form-overlay-nahrobky-pripisy" style="display: none;">
+        <form id="form-nahrobky-pripisy">
+            <div class="handle">
+                <button type="button" class="form-exit">✖</button>
+                <h2 id="form-nahrobky-pripisy-title">Náhrobek Přípisy 1</h2>
+            </div>
+            <div class="row"><label for="form-pripisy">Přípisy</label><input type="text" class="form-pripisy"></div>
+            <button type="button" class="pridat-dalsi">Přidat Další</button>
+        </form>
+    </div>
+
+    <div class="form-overlay" id="form-overlay-sklodesky-pripisy" style="display: none;">
+        <form id="form-sklodesky-pripisy">
+            <div class="handle">
+                <button type="button" class="form-exit">✖</button>
+                <h2 id="form-sklodesky-pripisy-title">Sklodeska Přípisy 1</h2>
+            </div>
+            <div class="row"><label for="form-pripisy">Přípisy</label><input type="text" class="form-pripisy"></div>
             <button type="button" class="pridat-dalsi">Přidat Další</button>
         </form>
     </div>
@@ -89,7 +109,9 @@
     <aside id="categories-selector">
         <h2>Formuláře</h2>
         <div class="selector" id="nahrobky-forms-btn"> <span>Náhrobky</span> </div>  <br>
+        <div class="selector" id="nahrobky-pripisy-forms-btn"> <span>Náhrobky přípisy</span> </div>  <br>
         <div class="selector" id="sklodesky-forms-btn"> <span>Sklodesky</span> </div> <br>
+        <div class="selector" id="sklodesky-pripisy-forms-btn"> <span>Sklodesky přípisy</span> </div> <br>
         <div class="selector" id="schody-forms-btn"> <span>Schody</span> </div> <br>
         <div class="selector" id="parapety-forms-btn"> <span>Parapety</span> </div> <br>
     </aside>

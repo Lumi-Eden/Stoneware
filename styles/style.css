@@ -80,7 +80,7 @@ body {
 
     transition: all;
 
-    #form-nahrobky, #form-sklodesky, #form-schody, #form-parapety {
+    #form-nahrobky, #form-sklodesky, #form-schody, #form-parapety, #form-nahrobky-pripisy, #form-sklodesky-pripisy {
         position: absolute;
 
         display: grid;
