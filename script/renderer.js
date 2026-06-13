@@ -33,25 +33,35 @@ let selectionParapetyLog = null
 
 // Forms
 const nahrobkyFormsBtn = document.getElementById("nahrobky-forms-btn")
+const nahrobkyPripsyFormsBtn = document.getElementById("nahrobky-pripisy-forms-btn")
 const sklodeskyFormsBtn = document.getElementById("sklodesky-forms-btn")
+const sklodeskyPripsyFormsBtn = document.getElementById("sklodesky-pripisy-forms-btn")
 const schodyFormsBtn = document.getElementById("schody-forms-btn")
 const parapetyFormsBtn = document.getElementById("parapety-forms-btn")
 
 const formOverlay = document.querySelectorAll(".form-overlay")
 const formOverlayNahrobky = document.getElementById("form-overlay-nahrobky")
+const formOverlayNahrobkyPripisy = document.getElementById("form-overlay-nahrobky-pripisy")
 const formOverlaySklodesky = document.getElementById("form-overlay-sklodesky")
+const formOverlaySklodeskyPripisy = document.getElementById("form-overlay-sklodesky-pripisy")
 const formOverlaySchody = document.getElementById("form-overlay-schody")
 const formOverlayParapety = document.getElementById("form-overlay-parapety")
 
 const formNahrobky = document.getElementById("form-nahrobky")
+const formNahrobkyPripisy = document.getElementById("form-nahrobky-pripisy")
 const formSklodesky = document.getElementById("form-sklodesky")
+const formSklodeskyPripisy = document.getElementById("form-sklodesky-pripisy")
 const formSchody = document.getElementById("form-schody")
 const formParapety = document.getElementById("form-parapety")
 
 let formNahrobkyTitle = document.getElementById("form-nahrobky-title")
 let formNahrobkyNumber = 1
+let formNahrobkyPripsyTitle = document.getElementById("form-nahrobky-pripisy-title")
+let formNahrobkyPripsyNumber = 1
 let formSklodeskyTitle = document.getElementById("form-sklodesky-title")
 let formSklodeskyNumber = 1
+let formSklodeskyPripsyTitle = document.getElementById("form-sklodesky-pripisy-title")
+let formSklodeskyPripsyNumber = 1
 let formSchodyTitle = document.getElementById("form-schody-title")
 let formSchodyNumber = 1
 let formParapetyTitle = document.getElementById("form-parapety-title")
@@ -83,8 +93,8 @@ let categoryId
 
 const categoryData = {
     default: {
-        images: ["img/polozky/desky/typ-A.png", "img/polozky/lampy-vazy/lampa-zula1.png", "img/polozky/doplnky/srdce.png", "img/polozky/foto/sklodeska.png","img/polozky/schody.png", "img/polozky/parapety.png", "img/polozky/oprava.png"],
-        p: ["Náhrobky", "Lampy a Vázy", "Doplňky", "Sklodesky", "Schody", "Parapety", "Oprava"]
+        images: ["img/polozky/desky/typ-A.png", "img/polozky/lampy-vazy/lampa-zula1.png", "img/polozky/doplnky/srdce.png", "img/polozky/foto/sklodeska.png","img/polozky/schody.png", "img/polozky/parapety.png", "img/polozky/Aa-pismo.png", "img/polozky/oprava.png"],
+        p: ["Náhrobky", "Lampy a Vázy", "Doplňky", "Sklodesky", "Schody", "Parapety", "Písmo", "Oprava"]
     },
 
     nahrobky: {
@@ -147,7 +157,7 @@ let p12 = document.getElementById("p12")
 let p13 = document.getElementById("p13")
 
 
-//
+// ---------------------------------------------------------------------------
 // Form buttons (guarded - some pages like print.html don't have these elements)
 if (nahrobkyFormsBtn) {
     nahrobkyFormsBtn.addEventListener("click", () => {
@@ -184,6 +194,25 @@ if (parapetyFormsBtn) {
         }
     })
 }
+
+if (nahrobkyPripsyFormsBtn) {
+    nahrobkyPripsyFormsBtn.addEventListener("click", () => {
+        if (formOverlayNahrobkyPripisy) formOverlayNahrobkyPripisy.style.display = "block"
+        if (formNahrobkyPripisy && !formNahrobkyPripisy.hasAttribute('data-form-draggable')) {
+            makeFormDraggable(formNahrobkyPripisy, formOverlayNahrobkyPripisy)
+        }
+    })
+}
+
+if (sklodeskyPripsyFormsBtn) {
+    sklodeskyPripsyFormsBtn.addEventListener("click", () => {
+        if (formOverlaySklodeskyPripisy) formOverlaySklodeskyPripisy.style.display = "block"
+        if (formSklodeskyPripisy && !formSklodeskyPripisy.hasAttribute('data-form-draggable')) {
+            makeFormDraggable(formSklodeskyPripisy, formOverlaySklodeskyPripisy)
+        }
+    })
+}
+// ---------------------------------------------------------------------------
 
 // Get id of clicked category
 document.querySelectorAll(".category-img").forEach((category) => {
@@ -316,7 +345,13 @@ document.querySelectorAll(".category-img").forEach((category) => {
                     }
 
                     if (selectedMainCategory === "nahrobky") {
-                        nextCategory = "pismo"
+                        nextCategory = "main-selection"
+
+                        formOverlayNahrobky.style.display = "block"
+                        // Make original form draggable if not already initialized
+                        if (!formNahrobky.hasAttribute('data-form-draggable')) {
+                            makeFormDraggable(formNahrobky, formOverlayNahrobky)
+                        }
 
                     } else if (AwaitingPrimarySelectionSchodyMaterial === false) {
                         nextCategory = "materialy"
@@ -347,11 +382,7 @@ document.querySelectorAll(".category-img").forEach((category) => {
                     if (selectionNahrobekLog) appendSelectionText(selectionNahrobekLog, selectedPismo)
                 }
 
-                formOverlayNahrobky.style.display = "block"
-                // Make original form draggable if not already initialized
-                if (!formNahrobky.hasAttribute('data-form-draggable')) {
-                    makeFormDraggable(formNahrobky, formOverlayNahrobky)
-                }
+                
                 
                 nextCategory = "main-selection"
             }
@@ -489,8 +520,8 @@ document.querySelectorAll(".category-img").forEach((category) => {
             categoryId = ""
 
             // Hide remnants of prev category
-            item7.src = ""
-            p7.textContent = ""
+            item7.src = ""; item8.src = "";
+            p7.textContent = ""; p8.textContent = "";
         }
 
         // Show category Lampy Vázy
@@ -534,6 +565,7 @@ document.querySelectorAll(".category-img").forEach((category) => {
             categoryId = "" // Might cause issues - to be tested
         }
 
+        // Show category Schody
         if (categoryId == "item5" && !selectedMainCategory) {
             console.log("Category 'Schody' loading...")
             currentlySelectedCategory = "schody"
@@ -554,6 +586,7 @@ document.querySelectorAll(".category-img").forEach((category) => {
             categoryId = ""
         }
 
+        // Show category Parapety
         if (categoryId === "item6" && !selectedMainCategory) {
             console.log("Category 'Schody' loading...")
             currentlySelectedCategory = "parapety"
@@ -574,13 +607,28 @@ document.querySelectorAll(".category-img").forEach((category) => {
             categoryId = ""
         }
 
-        // Show print Oprava
+        // Show category Pismo
         if (categoryId == "item7" && !selectedMainCategory) {
+            console.log("Category 'Písmo' loading...")
+            currentlySelectedCategory = "pismo"
+            selectedMainCategory = "pismo"
+
+            // Hide remnants of prev category
+            item8.src = "";
+            p8.textContent = "";
+
+            updateDisplay("pismo")
+
+            categoryId = ""
+        }
+
+        // Show print Oprava
+        if (categoryId == "item8" && !selectedMainCategory) {
             const opravaPat = `file://${location.pathname.replace(/script[\\\/]main\.js.*/, 'oprava.html')}`;
             if (typeof dataString !== 'undefined' && dataString) {
-                window.open(`oprava.html?data=${dataString}`, "_blank", "width=595");
+                window.open(`oprava.html?data=${dataString}`, "_blank", "width=1000");
             } else {
-                window.open("oprava.html", "_blank", "width=595");
+                window.open("oprava.html", "_blank", "width=1000");
             }
         }
 
@@ -636,7 +684,9 @@ document.querySelectorAll(".category-img").forEach((category) => {
 formExit.forEach((exitBtn) => {
     exitBtn.addEventListener("click", () => {
         formOverlayNahrobky.style.display = "none"
+        formOverlayNahrobkyPripisy.style.display = "none"
         formOverlaySklodesky.style.display = "none"
+        formOverlaySklodeskyPripisy.style.display = "none"
         formOverlaySchody.style.display = "none"
         formOverlayParapety.style.display = "none"
     })
@@ -817,6 +867,74 @@ pridatDalsi.forEach((pridatDalsiBtn) => {
                 formParapetyClone.style.transform = 'none'
                 console.log("Added new form - Parapety")
             }
+            // --- NAHROBKY PRIPISY ---
+            else if (formOverlayNahrobkyPripisy && formOverlayNahrobkyPripisy.style.display == "block") {
+                let formNahrobkyPripsyClone = formNahrobkyPripisy.cloneNode(true)
+
+                const rect = formNahrobkyPripisy.getBoundingClientRect()
+                const parentRect = formOverlayNahrobkyPripisy.getBoundingClientRect()
+                const offset = 30 * (formNahrobkyPripsyNumber > 0 ? formNahrobkyPripsyNumber : 1)
+
+                formNahrobkyPripsyClone.style.left = (rect.left - parentRect.left + formOverlayNahrobkyPripisy.scrollLeft + offset) + "px"
+                formNahrobkyPripsyClone.style.top  = (rect.top  - parentRect.top  + formOverlayNahrobkyPripisy.scrollTop  + offset - 200) + "px"
+
+                formOverlayNahrobkyPripisy.appendChild(formNahrobkyPripsyClone)
+
+                formNahrobkyPripsyNumber += 1
+                let formNahrobkyPripsyTitleClone = formNahrobkyPripsyClone.querySelector("#form-nahrobky-pripisy-title")
+                if (formNahrobkyPripsyTitleClone) formNahrobkyPripsyTitleClone.innerText = "Náhrobek Přípisy " + formNahrobkyPripsyNumber
+
+                formNahrobkyPripsyClone.querySelectorAll("button").forEach(btn => btn.style.display = "none")
+                formNahrobkyPripsyClone.querySelectorAll("input, textarea").forEach(el => {
+                    if (el.type === "checkbox" || el.type === "radio") el.checked = false
+                    else el.value = ""
+                })
+                formNahrobkyPripsyClone.querySelectorAll("select").forEach(s => s.selectedIndex = 0)
+                formNahrobkyPripsyClone.querySelectorAll(".log-text").forEach(el => el.innerText = "")
+
+                formNahrobkyPripsyClone.querySelectorAll("[id]").forEach(el => {
+                    if (el.id !== "form-nahrobky-pripisy-title") el.removeAttribute("id")
+                })
+                formNahrobkyPripsyClone.removeAttribute('data-form-draggable')
+
+                makeFormDraggable(formNahrobkyPripsyClone, formOverlayNahrobkyPripisy)
+                formNahrobkyPripsyClone.style.transform = 'none'
+                console.log("Added new form - Náhrobky Přípisy")
+            }
+            // --- SKLODESKY PRIPISY ---
+            else if (formOverlaySklodeskyPripisy && formOverlaySklodeskyPripisy.style.display == "block") {
+                let formSklodeskyPripsyClone = formSklodeskyPripisy.cloneNode(true)
+
+                const rect = formSklodeskyPripisy.getBoundingClientRect()
+                const parentRect = formOverlaySklodeskyPripisy.getBoundingClientRect()
+                const offset = 30 * (formSklodeskyPripsyNumber > 0 ? formSklodeskyPripsyNumber : 1)
+
+                formSklodeskyPripsyClone.style.left = (rect.left - parentRect.left + formOverlaySklodeskyPripisy.scrollLeft + offset) + "px"
+                formSklodeskyPripsyClone.style.top  = (rect.top  - parentRect.top  + formOverlaySklodeskyPripisy.scrollTop  + offset - 200) + "px"
+
+                formOverlaySklodeskyPripisy.appendChild(formSklodeskyPripsyClone)
+
+                formSklodeskyPripsyNumber += 1
+                let formSklodeskyPripsyTitleClone = formSklodeskyPripsyClone.querySelector("#form-sklodesky-pripisy-title")
+                if (formSklodeskyPripsyTitleClone) formSklodeskyPripsyTitleClone.innerText = "Sklodeska Přípisy " + formSklodeskyPripsyNumber
+
+                formSklodeskyPripsyClone.querySelectorAll("button").forEach(btn => btn.style.display = "none")
+                formSklodeskyPripsyClone.querySelectorAll("input, textarea").forEach(el => {
+                    if (el.type === "checkbox" || el.type === "radio") el.checked = false
+                    else el.value = ""
+                })
+                formSklodeskyPripsyClone.querySelectorAll("select").forEach(s => s.selectedIndex = 0)
+                formSklodeskyPripsyClone.querySelectorAll(".log-text").forEach(el => el.innerText = "")
+
+                formSklodeskyPripsyClone.querySelectorAll("[id]").forEach(el => {
+                    if (el.id !== "form-sklodesky-pripisy-title") el.removeAttribute("id")
+                })
+                formSklodeskyPripsyClone.removeAttribute('data-form-draggable')
+
+                makeFormDraggable(formSklodeskyPripsyClone, formOverlaySklodeskyPripisy)
+                formSklodeskyPripsyClone.style.transform = 'none'
+                console.log("Added new form - Sklodesky Přípisy")
+            }
     })
 })
 
@@ -927,8 +1045,8 @@ function restoreMainSelection() {
     updateDisplay("default")
     
     // Hide remnants of past categories
-    item8.src=""; item9.src=""; item10.src=""; item11.src=""; item12.src=""; item13.src="";
-    p8.textContent=""; p9.textContent=""; p10.textContent=""; p11.textContent=""; p12.textContent=""; p13.textContent="";
+    item9.src=""; item10.src=""; item11.src=""; item12.src=""; item13.src="";
+    p9.textContent=""; p10.textContent=""; p11.textContent=""; p12.textContent=""; p13.textContent="";
     
     categoryId = ""
 }
@@ -950,7 +1068,7 @@ function clearSelection() {
     selectionSchodyMaterialPodstupnice = null
     selectionSchodyLog = null
 
-    const allForms = document.querySelectorAll("#form-overlay-nahrobky form, #form-overlay-sklodesky form, #form-overlay-schody form, #form-overlay-parapety form");
+    const allForms = document.querySelectorAll("#form-overlay-nahrobky form, #form-overlay-nahrobky-pripisy form, #form-overlay-sklodesky form, #form-overlay-sklodesky-pripisy form, #form-overlay-schody form, #form-overlay-parapety form");
 
     allForms.forEach(form => {
         form.reset(); // This clears text inputs and unchecks checkboxes
@@ -1063,7 +1181,9 @@ printRedirect.addEventListener("click", () => {
         doplnekMaterial: selectionDoplnekMaterial,
         forms: {
             nahrobky: [],
+            nahrobkyPripisy: [],
             sklodesky: [],
+            sklodeskyPripisy: [],
             schody: [],
             parapety: []
         }
@@ -1075,25 +1195,29 @@ printRedirect.addEventListener("click", () => {
 
     // Collect all nahrobky forms
     const nahrobkyForms = document.querySelectorAll("#form-overlay-nahrobky form")
-    nahrobkyForms.forEach((form) => {
+    const nahrobkyPripsyForms = document.querySelectorAll("#form-overlay-nahrobky-pripisy form")
+
+    nahrobkyForms.forEach((form, index) => {
         const rows = form.querySelectorAll(".row")
         const formData = {
             jmeno:    rows[0]?.querySelector("input")?.value || "",
             prijmeni: rows[1]?.querySelector("input")?.value || "",
             narozeni: rows[2]?.querySelector("input")?.value || "",
             umrti:    rows[3]?.querySelector("input")?.value || "",
-            text:     form.querySelector(".form-text")?.value || "",
+            text:     nahrobkyPripsyForms[index]?.querySelector(".form-pripisy")?.value || "",
             znak:     form.querySelector(".form-znak")?.value || "",
             foto:     form.querySelector(".form-foto")?.value || "",
-            lesteni:  rows[7]?.querySelector("input[type='checkbox']")?.checked || false,
-            chodnicky: rows[8]?.querySelector("input[type='checkbox']")?.checked || false
+            lesteni:  rows[6]?.querySelector("input[type='checkbox']")?.checked || false,
+            chodnicky: rows[7]?.querySelector("input[type='checkbox']")?.checked || false
         }
         printData.forms.nahrobky.push(formData)
     })
 
     // Collect all sklodesky forms
     const sklodeskuForms = document.querySelectorAll("#form-overlay-sklodesky form")
-    sklodeskuForms.forEach((form) => {
+    const sklodeskyPripsyForms = document.querySelectorAll("#form-overlay-sklodesky-pripisy form")
+
+    sklodeskuForms.forEach((form, index) => {
         const rows = form.querySelectorAll(".row")
         // Robustly find the 'rozmer' input: prefer an input with id containing 'rozmer',
         // otherwise search rows for a label that includes the word 'Rozměr'.
@@ -1117,13 +1241,12 @@ printRedirect.addEventListener("click", () => {
             narozeni: rows[2]?.querySelector("input")?.value || "",
             umrti:    rows[3]?.querySelector("input")?.value || "",
             rozmer:   rozmerVal,
-            text:     form.querySelector(".form-text")?.value || "",
+            text:     sklodeskyPripsyForms[index]?.querySelector(".form-pripisy")?.value || "",
             znak:     form.querySelector(".form-znak")?.value || "",
             foto:     form.querySelector(".form-foto")?.value || ""
         }
         printData.forms.sklodesky.push(formData)
     })
-
 
     // Collect all schody forms
     const schodyForms = document.querySelectorAll("#form-overlay-schody form")
