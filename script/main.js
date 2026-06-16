@@ -25,7 +25,8 @@ function createWindow () {
 
   win.loadFile('index.html')
 
-  // win.webContents.openDevTools() -- dev tools on start
+  //  DEV TOOLS ON START
+  win.webContents.openDevTools()
 
   // --- Print Functionality ---
   const contextMenu = [

@@ -255,7 +255,7 @@ main > input[type="text"]:not(#poznamky-input) {
 
 #logo-podpis {
     position: fixed;
-    bottom: 30px; left: 35px;
+    bottom: 50px; left: 35px;
     width: 135px; height: 125px;
     z-index: -1;
 }
@@ -309,4 +309,13 @@ main > input[type="text"]:not(#poznamky-input) {
     flex-wrap: wrap;
     gap: 20px;
     margin-top: 10px;
+}
+
+/*      */
+/* Date */
+/*      */
+#datum {
+    position: fixed;
+    bottom: 40px;
+    left: 70px;
 }
