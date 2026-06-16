@@ -159,59 +159,50 @@ let p13 = document.getElementById("p13")
 
 // ---------------------------------------------------------------------------
 // Form buttons (guarded - some pages like print.html don't have these elements)
-if (nahrobkyFormsBtn) {
-    nahrobkyFormsBtn.addEventListener("click", () => {
-        if (formOverlayNahrobky) formOverlayNahrobky.style.display = "block"
-        if (formNahrobky && !formNahrobky.hasAttribute('data-form-draggable')) {
-            makeFormDraggable(formNahrobky, formOverlayNahrobky)
-        }
-    })
-}
 
-if (sklodeskyFormsBtn) {
-    sklodeskyFormsBtn.addEventListener("click", () => {
-        if (formOverlaySklodesky) formOverlaySklodesky.style.display = "block"
-        if (formSklodesky && !formSklodesky.hasAttribute('data-form-draggable')) {
-            makeFormDraggable(formSklodesky, formOverlaySklodesky)
-        }
-    })
-}
+const formConfigs = [
+    { 
+        btn: nahrobkyFormsBtn, 
+        overlay: formOverlayNahrobky, 
+        form: formNahrobky 
+    },
+    { 
+        btn: nahrobkyPripsyFormsBtn,
+        overlay: formOverlayNahrobkyPripisy, 
+        form: formNahrobkyPripisy 
+    },
+    { 
+        btn: sklodeskyFormsBtn, 
+        overlay: formOverlaySklodesky, 
+        form: formSklodesky 
+    },
+    { 
+        btn: sklodeskyPripsyFormsBtn, 
+        overlay: formOverlaySklodeskyPripisy, 
+        form: formSklodeskyPripisy 
+    },
+    { 
+        btn: schodyFormsBtn, 
+        overlay: formOverlaySchody, 
+        form: formSchody 
+    },
+    { 
+        btn: parapetyFormsBtn, 
+        overlay: formOverlayParapety, 
+        form: formParapety 
+    }
+];
 
-if (schodyFormsBtn) {
-    schodyFormsBtn.addEventListener("click", () => {
-        if (formOverlaySchody) formOverlaySchody.style.display = "block"
-        if (formSchody && !formSchody.hasAttribute('data-form-draggable')) {
-            makeFormDraggable(formSchody, formOverlaySchody)
-        }
-    })
-}
+formConfigs.forEach( ({btn, overlay, form}) => {
+    if (!btn) return;
 
-if (parapetyFormsBtn) {
-    parapetyFormsBtn.addEventListener("click", () => {
-        if (formOverlayParapety) formOverlayParapety.style.display = "block"
-        if (formParapety && !formParapety.hasAttribute('data-form-draggable')) {
-            makeFormDraggable(formParapety, formOverlayParapety)
+    btn.addEventListener("click", () => {
+        if (overlay) overlay.style.display = "block";
+        if (form && !form.hasAttribute('data-form-draggable')) {
+            makeFormDraggable(form, overlay);
         }
-    })
-}
-
-if (nahrobkyPripsyFormsBtn) {
-    nahrobkyPripsyFormsBtn.addEventListener("click", () => {
-        if (formOverlayNahrobkyPripisy) formOverlayNahrobkyPripisy.style.display = "block"
-        if (formNahrobkyPripisy && !formNahrobkyPripisy.hasAttribute('data-form-draggable')) {
-            makeFormDraggable(formNahrobkyPripisy, formOverlayNahrobkyPripisy)
-        }
-    })
-}
-
-if (sklodeskyPripsyFormsBtn) {
-    sklodeskyPripsyFormsBtn.addEventListener("click", () => {
-        if (formOverlaySklodeskyPripisy) formOverlaySklodeskyPripisy.style.display = "block"
-        if (formSklodeskyPripisy && !formSklodeskyPripisy.hasAttribute('data-form-draggable')) {
-            makeFormDraggable(formSklodeskyPripisy, formOverlaySklodeskyPripisy)
-        }
-    })
-}
+    });
+});
 // ---------------------------------------------------------------------------
 
 // Get id of clicked category

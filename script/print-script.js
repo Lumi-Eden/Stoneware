@@ -1,11 +1,32 @@
+// ------------------------
 // Saving the header
-// jmenoZakaznika = document.getElementById("jmeno-zakaznika");
-// tel = document.getElementById("tel");
-// misto = document.getElementById("misto")
+// ------------------------
+jmenoZakaznikaData = document.getElementById("jmeno-zakaznika");
+telData = document.getElementById("tel");
+mistoData = document.getElementById("misto")
 
-// function saveInputToMainPage(InputField) {
+window.addEventListener("beforeunload", () => {saveInputsToMainPage();});
 
-// }
+function saveInputsToMainPage() {
+    let savedData = {
+        jmenoZakaznika: jmenoZakaznikaData.value,
+        tel: telData.value,
+        misto: mistoData.value
+    }
+    localStorage.setItem('printInputData', JSON.stringify(savedData));
+}
+
+function loadPrintInputs() {
+    const rawDataInputs = localStorage.getItem("printInputData");
+
+    if (rawDataInputs) {
+        const savedData = JSON.parse(rawDataInputs);
+
+        jmenoZakaznikaData.value = savedData.jmenoZakaznika||"";
+        telData.value = savedData.tel||"";
+        mistoData.value = savedData.misto||"";
+    }
+}
 
 // ---------------------------
 // Imported data management
@@ -193,5 +214,11 @@ function loadPrintData() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+    loadPrintInputs()
     loadPrintData()
+
+    // Import and display current date
+    let datum = document.getElementById("datum");
+    currentDate = new Date().toLocaleDateString('cs-CZ');
+    datum.innerText = currentDate;
 });
