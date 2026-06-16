@@ -2,12 +2,13 @@
     /* Color pallet */
     --stone-blue: rgb(135, 158, 169);
 
-    /* background-color: rgb(255, 255, 255); */
     background-image:
-        /* linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), */
+        linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),
         url("../img/var4-opacity.png");
     background-repeat: no-repeat;
     background-size: cover;
+
+    background-color: rgb(255, 255, 255);
 
     text-shadow: 8px;
     font-weight: bold;
@@ -201,7 +202,8 @@ header {
         width: 95%; height: 50%;
         padding-right: 0px; padding-left: 20px;
         appearance: none;
-        border: 2px solid rgb(0, 0, 0);
+        border: 1px solid rgb(0, 0, 0);
+        box-shadow: 4px 6px #c0c0c09d;
         border-radius: 10px;
 
         transition: transform .22s ease, box-shadow .22s ease;
@@ -267,10 +269,10 @@ header {
     margin-top: 20px; margin-left: 25px;
     width: 175px;
     padding: 0 20px 15px 20px;
-    border: 2px solid rgb(0, 0, 0);
+    box-shadow: 8px 8px #c0c0c09d;
 
-    background: #a9a9a980;
-    background: linear-gradient(0deg, rgba(169, 169, 169, 0.75) 0%, rgba(255, 255, 255, 0.75) 100%);
+    background: #a9a9a92f;
+    background: linear-gradient(0deg, rgba(169, 169, 169, 0.26) 0%, rgba(255, 255, 255, 0.219) 100%);
 
     border-radius: 10px;
 
@@ -314,10 +316,10 @@ header {
     width: 175px; height: 25rem;
     bottom: 0px; left: 25px;
 
-    border: 2px solid rgb(0, 0, 0);
+    box-shadow: 8px 8px #c0c0c09d;
 
     background: #a9a9a980;
-    background: linear-gradient(0deg, rgba(169, 169, 169, 0.75) 0%, rgba(255, 255, 255, 0.75) 100%);
+    background: linear-gradient(0deg, rgba(169, 169, 169, 0.288) 0%, rgba(255, 255, 255, 0.233) 100%);
     
     padding: 20px 20px 0px 15px;
     border-radius: 10px;
@@ -340,15 +342,15 @@ header {
 main {
     animation: 1s cubic-bezier(0, 0.9, 0.3, 1) 0s 1 mainSlideIn;
 
-    margin-left: 20rem !important;
+    margin-left: 25rem !important;
     margin-top: 2rem;
 
     .parent {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         grid-template-rows: repeat(3, 1fr);
-        grid-column-gap: 35px;
-        grid-row-gap: 120px !important;
+        grid-column-gap: 28px !important;
+        grid-row-gap: 105px !important;
         gap: 20px;
     }
 
@@ -364,14 +366,18 @@ main {
 
     .category {
         margin-top: calc(auto+50px);
-        /* border: solid black 1px; */
-        width: 450px; /* Change in case of visual glithces from transition */
+        width: 400px; height: 350px; /* Change in case of visual glithces from transition */
+        border-radius: 18px;
+        transition: all 0.2s ease-in-out;
+
+        &:hover {
+            transform: scale(1.05);
+        }
 
         & img {
             display: flex;
             margin: auto;
             max-width: 350px; max-height: 250px;
-
             transition: transform .35s ease;
             will-change: transform;
 
@@ -380,8 +386,18 @@ main {
             }
         }
 
+        & .img-style-box {
+            display: flex;
+            margin: auto;
+            width: 350px; height: auto;
+            /* background-color: #ffffff36; */
+        }
+
         & p {
-           text-align: center; 
+            text-align: center; 
+            font-weight: bold;
+            font-size: 22px;
+            max-height: 30px;
         }
         
         & img, p {
