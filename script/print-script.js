@@ -1,9 +1,10 @@
 // ------------------------
-// Saving the header
+// Header management
 // ------------------------
-jmenoZakaznikaData = document.getElementById("jmeno-zakaznika");
-telData = document.getElementById("tel");
-mistoData = document.getElementById("misto")
+// Saving
+var jmenoZakaznikaData = document.getElementById("jmeno-zakaznika");
+var telData = document.getElementById("tel");
+var mistoData = document.getElementById("misto")
 
 window.addEventListener("beforeunload", () => {saveInputsToMainPage();});
 
