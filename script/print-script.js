@@ -82,16 +82,9 @@ function buildNahrobkyForm(f, index) {
 
 function buildSklodeskyForm(f, index) {
     const title = index === 0 ? "Sklodeska 1" : `Sklodeska ${index + 1}`;
-    const name = [f.jmeno, f.prijmeni].filter(Boolean).join(" ");
-    const dates = [f.narozeni, f.umrti].filter(Boolean).join(" – ");
     const rozmer = (f.rozmer || "").toString().trim();
     let html = `<div class="form-block"><strong>${title}</strong>`;
-    html += row("Jméno:", name);
-    html += row("Data:", dates);
-    html += row("Rozměr:", rozmer)
-    html += row("Text:", f.text);
-    html += row("Znak:", f.znak);
-    html += row("Foto:", f.foto);
+    html += row("Rozměr:", rozmer);
     html += `</div>`;
     return html;
 }
@@ -124,6 +117,7 @@ function loadPrintData() {
     // CHANGED: Now getting data from URL instead of LocalStorage
     const d = getPrintDataFromURL();
     if (!d) return;
+    
     // --- Náhrobky header (typ + materiál) ---
     if (d.nahrobky) {
         let text = d.nahrobky;
@@ -162,24 +156,26 @@ function loadPrintData() {
     }
 
     // --- Náhrobky form data ---
+    // OPRAVA: Přidána explicitní kontrola na existenci elementu a správného pole
     const nahrobkyFormsEl = document.getElementById("nahrobky-forms");
-    if (d.forms && d.forms.nahrobky && d.forms.nahrobky.length > 0) {
+    if (nahrobkyFormsEl && d.forms && d.forms.nahrobky && d.forms.nahrobky.length > 0) {
         nahrobkyFormsEl.innerHTML = d.forms.nahrobky
             .map((f, i) => buildNahrobkyForm(f, i))
             .join("");
     }
 
     // --- Sklodesky form data ---
-    const sklodeskuFormsEl = document.getElementById("sklodesky-forms");
-    if (d.forms && d.forms.sklodesky && d.forms.sklodesky.length > 0) {
-        sklodeskuFormsEl.innerHTML = d.forms.sklodesky
+    // OPRAVA: Sjednocen název proměnné (sklodesku -> sklodesky) a ověření ID elementu v HTML
+    const sklodeskyFormsEl = document.getElementById("sklodesky-forms");
+    if (sklodeskyFormsEl && d.forms && d.forms.sklodesky && d.forms.sklodesky.length > 0) {
+        sklodeskyFormsEl.innerHTML = d.forms.sklodesky
             .map((f, i) => buildSklodeskyForm(f, i))
             .join("");
     }
 
     // --- Doplňky ---
     const doplnkyEl = document.getElementById("doplnky-imported");
-    if (d.doplnek) {
+    if (doplnkyEl && d.doplnek) {
         const items = Array.isArray(d.doplnek) ? d.doplnek : [d.doplnek];
         const materials = Array.isArray(d.doplnekMaterial)
             ? d.doplnekMaterial
@@ -193,7 +189,7 @@ function loadPrintData() {
 
     // --- Lampy a Vázy ---
     const lvEl = document.getElementById("lampy-vazy-imported");
-    if (d.lampyVazy && d.lampyVazy.length > 0) {
+    if (lvEl && d.lampyVazy && d.lampyVazy.length > 0) {
         lvEl.innerHTML = d.lampyVazy.map((item, i) => {
             let line = item;
             if (d.lampyVazyMaterial && d.lampyVazyMaterial[i]) {
@@ -206,11 +202,13 @@ function loadPrintData() {
     }
     
     // --- Písmo ---
-    if (d.pismo) document.getElementById("pismo-imported").textContent = d.pismo;
-    if (d.barva && d.barva.length > 0) {
-        // Check if barva is an array or string
+    const pismoEl = document.getElementById("pismo-imported");
+    if (pismoEl && d.pismo) pismoEl.textContent = d.pismo;
+    
+    const barvaEl = document.getElementById("barva-imported");
+    if (barvaEl && d.barva && d.barva.length > 0) {
         const barvaText = Array.isArray(d.barva) ? d.barva.join(", ") : d.barva;
-        document.getElementById("barva-imported").textContent = barvaText;
+        barvaEl.textContent = barvaText;
     }
 }
 
