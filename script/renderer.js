@@ -42,7 +42,6 @@ const parapetyFormsBtn = document.getElementById("parapety-forms-btn")
 const formOverlay = document.querySelectorAll(".form-overlay")
 const formOverlayNahrobky = document.getElementById("form-overlay-nahrobky")
 const formOverlayNahrobkyPripisy = document.getElementById("form-overlay-nahrobky-pripisy")
-const formOverlaySklodesky = document.getElementById("form-overlay-sklodesky")
 const formOverlaySklodeskyPripisy = document.getElementById("form-overlay-sklodesky-pripisy")
 const formOverlaySchody = document.getElementById("form-overlay-schody")
 const formOverlayParapety = document.getElementById("form-overlay-parapety")
@@ -93,8 +92,8 @@ let categoryId
 
 const categoryData = {
     default: {
-        images: ["img/polozky/desky/typ-A.png", "img/polozky/lampy-vazy/lampa-zula1.png", "img/polozky/doplnky/srdce.png", "img/polozky/foto/sklodeska.png","img/polozky/schody.png", "img/polozky/parapety.png", "img/polozky/Aa-pismo.png", "img/polozky/oprava.png"],
-        p: ["Náhrobky", "Lampy a Vázy", "Doplňky", "Sklodesky", "Schody", "Parapety", "Písmo", "Oprava"]
+        images: ["img/polozky/desky/typ-A.png", "img/polozky/lampy-vazy/lampa-zula1.png", "img/polozky/doplnky/srdce.png", "img/polozky/schody.png", "img/polozky/parapety.png", "img/polozky/Aa-pismo.png", "img/polozky/oprava.png"],
+        p: ["Náhrobky", "Lampy a Vázy", "Doplňky", "Schody", "Parapety", "Písmo", "Oprava"]
     },
 
     nahrobky: {
@@ -164,7 +163,7 @@ const formConfigs = [
     { 
         btn: nahrobkyFormsBtn, 
         overlay: formOverlayNahrobky, 
-        form: formNahrobky 
+        form: [formNahrobky, formSklodesky] 
     },
     { 
         btn: nahrobkyPripsyFormsBtn,
@@ -173,11 +172,11 @@ const formConfigs = [
     },
     { 
         btn: sklodeskyFormsBtn, 
-        overlay: formOverlaySklodesky, 
-        form: formSklodesky 
+        overlay: formOverlayNahrobky, 
+        form: [formNahrobky, formSklodesky] 
     },
     { 
-        btn: sklodeskyPripsyFormsBtn, 
+        btn: sklodeskyPripsyFormsBtn,
         overlay: formOverlaySklodeskyPripisy, 
         form: formSklodeskyPripisy 
     },
@@ -196,11 +195,15 @@ const formConfigs = [
 formConfigs.forEach( ({btn, overlay, form}) => {
     if (!btn) return;
 
+    const forms = Array.isArray(form) ? form : [form];
+
     btn.addEventListener("click", () => {
         if (overlay) overlay.style.display = "block";
-        if (form && !form.hasAttribute('data-form-draggable')) {
-            makeFormDraggable(form, overlay);
-        }
+        forms.forEach(f => {
+            if (f && !f.hasAttribute('data-form-draggable')) {
+                makeFormDraggable(f, overlay);
+            }
+        });
     });
 });
 // ---------------------------------------------------------------------------
@@ -338,11 +341,12 @@ document.querySelectorAll(".category-img").forEach((category) => {
                     if (selectedMainCategory === "nahrobky") {
                         nextCategory = "main-selection"
 
-                        formOverlayNahrobky.style.display = "block"
-                        // Make original form draggable if not already initialized
-                        if (!formNahrobky.hasAttribute('data-form-draggable')) {
-                            makeFormDraggable(formNahrobky, formOverlayNahrobky)
-                        }
+                        // -- To display overlay after náhrobky selecton
+                        // formOverlayNahrobky.style.display = "block"
+                        // // Make original form draggable if not already initialized
+                        // if (!formNahrobky.hasAttribute('data-form-draggable')) {
+                        //     makeFormDraggable(formNahrobky, formOverlayNahrobky)
+                        // }
 
                     } else if (AwaitingPrimarySelectionSchodyMaterial === false) {
                         nextCategory = "materialy"
@@ -371,6 +375,17 @@ document.querySelectorAll(".category-img").forEach((category) => {
                     selectionPismo = selectedPismo
                     console.log("Písmo pro náhrobek zvoleno: ", selectionPismo)
                     if (selectionNahrobekLog) appendSelectionText(selectionNahrobekLog, selectedPismo)
+
+                    // Show both Náhrobky and Sklodesky forms in merged overlay
+                    if (formOverlayNahrobky) {
+                        formOverlayNahrobky.style.display = "block"
+                        if (!formNahrobky.hasAttribute('data-form-draggable')) {
+                            makeFormDraggable(formNahrobky, formOverlayNahrobky)
+                        }
+                        if (!formSklodesky.hasAttribute('data-form-draggable')) {
+                            makeFormDraggable(formSklodesky, formOverlayNahrobky)
+                        }
+                    }
                 }
 
                 
@@ -546,18 +561,10 @@ document.querySelectorAll(".category-img").forEach((category) => {
             categoryId = ""
         }
 
-        // Show form Sklodesky
-        if (categoryId == "item4" && !selectedMainCategory) {
-            formOverlaySklodesky.style.display = "block"
-            // Make original form draggable if not already initialized
-            if (!formSklodesky.hasAttribute('data-form-draggable')) {
-                makeFormDraggable(formSklodesky, formOverlaySklodesky)
-            }
-            categoryId = "" // Might cause issues - to be tested
-        }
+        // Show form Sklodesky (removed - now merged with Náhrobky in font selection)
 
         // Show category Schody
-        if (categoryId == "item5" && !selectedMainCategory) {
+        if (categoryId == "item4" && !selectedMainCategory) {
             console.log("Category 'Schody' loading...")
             currentlySelectedCategory = "schody"
             selectedMainCategory = "schody"
@@ -578,7 +585,7 @@ document.querySelectorAll(".category-img").forEach((category) => {
         }
 
         // Show category Parapety
-        if (categoryId === "item6" && !selectedMainCategory) {
+        if (categoryId === "item5" && !selectedMainCategory) {
             console.log("Category 'Schody' loading...")
             currentlySelectedCategory = "parapety"
             selectedMainCategory = "parapety"
@@ -599,7 +606,7 @@ document.querySelectorAll(".category-img").forEach((category) => {
         }
 
         // Show category Pismo
-        if (categoryId == "item7" && !selectedMainCategory) {
+        if (categoryId == "item6" && !selectedMainCategory) {
             console.log("Category 'Písmo' loading...")
             currentlySelectedCategory = "pismo"
             selectedMainCategory = "pismo"
@@ -614,7 +621,7 @@ document.querySelectorAll(".category-img").forEach((category) => {
         }
 
         // Show print Oprava
-        if (categoryId == "item8" && !selectedMainCategory) {
+        if (categoryId == "item7" && !selectedMainCategory) {
             const opravaPat = `file://${location.pathname.replace(/script[\\\/]main\.js.*/, 'oprava.html')}`;
             if (typeof dataString !== 'undefined' && dataString) {
                 window.open(`oprava.html?data=${dataString}`, "_blank", "width=1000");
@@ -676,7 +683,6 @@ formExit.forEach((exitBtn) => {
     exitBtn.addEventListener("click", () => {
         formOverlayNahrobky.style.display = "none"
         formOverlayNahrobkyPripisy.style.display = "none"
-        formOverlaySklodesky.style.display = "none"
         formOverlaySklodeskyPripisy.style.display = "none"
         formOverlaySchody.style.display = "none"
         formOverlayParapety.style.display = "none"
@@ -686,11 +692,15 @@ formExit.forEach((exitBtn) => {
 
 // Add new form
 pridatDalsi.forEach((pridatDalsiBtn) => {
-    pridatDalsiBtn.addEventListener("click", () => {
+    pridatDalsiBtn.addEventListener("click", (e) => {
         console.log("Adding another form...")
 
+        // Which form does the clicked button actually live in?
+        // (needed because nahrobky and sklodesky share one overlay)
+        const clickedForm = e.currentTarget.closest('form')
+
         // --- NAHROBKY ---
-        if (formOverlayNahrobky && formOverlayNahrobky.style.display == "block") { // Náhrobky cloning
+        if (formOverlayNahrobky && formOverlayNahrobky.style.display == "block" && clickedForm && clickedForm.id === "form-nahrobky") { // Náhrobky cloning
             let formNahrobkyClone = formNahrobky.cloneNode(true)
             
             // NEW CASCADE LOGIC
@@ -741,22 +751,22 @@ pridatDalsi.forEach((pridatDalsiBtn) => {
 
 
         // --- SKLODESKY ---
-        } else if (formOverlaySklodesky && formOverlaySklodesky.style.display == "block") { // Sklodesky cloning
+        } else if (formOverlayNahrobky && formOverlayNahrobky.style.display == "block" && clickedForm && clickedForm.id === "form-sklodesky") { // Sklodesky cloning
             let formSklodeskyClone = formSklodesky.cloneNode(true)
             
             // --- NEW CASCADE LOGIC ---
             const rect = formSklodesky.getBoundingClientRect()
-            const parentRect = formOverlaySklodesky.getBoundingClientRect()
+            const parentRect = formOverlayNahrobky.getBoundingClientRect()
             
             // We can multiply the offset by the SklodeskyNumber so multiple clicks 
             // create a continuous diagonal staircase effect!
             const offset = 30 * (formSklodeskyNumber > 0 ? formSklodeskyNumber : 1)
             
-            formSklodeskyClone.style.left = (rect.left - parentRect.left + formOverlaySklodesky.scrollLeft + offset) + "px"
-            formSklodeskyClone.style.top  = (rect.top  - parentRect.top  + formOverlaySklodesky.scrollTop  + offset - 350) + "px"
+            formSklodeskyClone.style.left = (rect.left - parentRect.left + formOverlayNahrobky.scrollLeft + offset) + "px"
+            formSklodeskyClone.style.top  = (rect.top  - parentRect.top  + formOverlayNahrobky.scrollTop  + offset - 350) + "px"
             // -------------------------
 
-            formOverlaySklodesky.appendChild(formSklodeskyClone)
+            formOverlayNahrobky.appendChild(formSklodeskyClone)
 
             // Update the form clone title
             formSklodeskyNumber += 1
@@ -782,7 +792,7 @@ pridatDalsi.forEach((pridatDalsiBtn) => {
             formSklodeskyClone.removeAttribute('data-form-draggable')
 
             // Setup drag for new form
-            makeFormDraggable(formSklodeskyClone, formOverlaySklodesky)
+            makeFormDraggable(formSklodeskyClone, formOverlayNahrobky)
             
             // --- CLEAR TRANSFORM ---
             formSklodeskyClone.style.transform = 'none'
@@ -1036,8 +1046,8 @@ function restoreMainSelection() {
     updateDisplay("default")
     
     // Hide remnants of past categories
-    item9.src=""; item10.src=""; item11.src=""; item12.src=""; item13.src="";
-    p9.textContent=""; p10.textContent=""; p11.textContent=""; p12.textContent=""; p13.textContent="";
+    item8.src=""; item9.src=""; item10.src=""; item11.src=""; item12.src=""; item13.src="";
+    p8.textContent=""; p9.textContent=""; p10.textContent=""; p11.textContent=""; p12.textContent=""; p13.textContent="";
     
     categoryId = ""
 }
@@ -1184,10 +1194,17 @@ printRedirect.addEventListener("click", () => {
     // Store printData for print-script.js
     localStorage.setItem("printSettings", JSON.stringify(printData));
 
-    // Collect all nahrobky forms
-    const nahrobkyForms = document.querySelectorAll("#form-overlay-nahrobky form")
-    const nahrobkyPripsyForms = document.querySelectorAll("#form-overlay-nahrobky-pripisy form")
+// Grab ALL forms from the shared overlay
+    const allNahrobkySklodeskyForms = document.querySelectorAll("#form-overlay-nahrobky form");
+    
+    // Filter them out by their preserved title IDs
+    const nahrobkyForms = Array.from(allNahrobkySklodeskyForms).filter(form => form.querySelector("#form-nahrobky-title"));
+    const sklodeskuForms = Array.from(allNahrobkySklodeskyForms).filter(form => form.querySelector("#form-sklodesky-title"));
 
+    const nahrobkyPripsyForms = document.querySelectorAll("#form-overlay-nahrobky-pripisy form")
+    const sklodeskyPripsyForms = document.querySelectorAll("#form-overlay-sklodesky-pripisy form") // Assuming this overlay still exists separately
+
+    // Collect all nahrobky forms
     nahrobkyForms.forEach((form, index) => {
         const rows = form.querySelectorAll(".row")
         const formData = {
@@ -1205,36 +1222,10 @@ printRedirect.addEventListener("click", () => {
     })
 
     // Collect all sklodesky forms
-    const sklodeskuForms = document.querySelectorAll("#form-overlay-sklodesky form")
-    const sklodeskyPripsyForms = document.querySelectorAll("#form-overlay-sklodesky-pripisy form")
-
     sklodeskuForms.forEach((form, index) => {
-        const rows = form.querySelectorAll(".row")
-        // Robustly find the 'rozmer' input: prefer an input with id containing 'rozmer',
-        // otherwise search rows for a label that includes the word 'Rozměr'.
-        let rozmerVal = "";
-        const byId = form.querySelector("input[id*='rozmer']")
-        if (byId) {
-            rozmerVal = byId.value || "";
-        } else {
-            for (const r of rows) {
-                const lab = r.querySelector('label')
-                if (lab && /rozm/i.test(lab.textContent)) {
-                    const inp = r.querySelector('input')
-                    if (inp) { rozmerVal = inp.value || ""; break }
-                }
-            }
-        }
-
         const formData = {
-            jmeno:    rows[0]?.querySelector("input")?.value || "",
-            prijmeni: rows[1]?.querySelector("input")?.value || "",
-            narozeni: rows[2]?.querySelector("input")?.value || "",
-            umrti:    rows[3]?.querySelector("input")?.value || "",
-            rozmer:   rozmerVal,
-            text:     sklodeskyPripsyForms[index]?.querySelector(".form-pripisy")?.value || "",
-            znak:     form.querySelector(".form-znak")?.value || "",
-            foto:     form.querySelector(".form-foto")?.value || ""
+            // Changed: Grabs the first input field directly instead of relying on the stripped ID
+            rozmer: form.querySelector("input")?.value || ""
         }
         printData.forms.sklodesky.push(formData)
     })
