@@ -44,12 +44,19 @@ header input {
     border: 1px solid #999;
     font-size: 13px;
     font-family: Arial, sans-serif;
-    width: 620px;
+    width: 550px;
     min-width: 0;
 }
 
 header > br {
     display: none;
+}
+
+#logo-podpis {
+    position: fixed;
+    top: -10px; right: 35px;
+    width: 135px; height: 125px;
+    z-index: -1;
 }
 
 .divider {
@@ -194,13 +201,6 @@ main > input[type="text"]:not(#poznamky-input) {
     min-width: 0;
 }
 
-#logo {
-    position: absolute;
-    right: 15px;
-    top: 15px;
-    width: 100px;
-}
-
 #pismo-imported, #barva-input {
     grid-column: 2;
 }
@@ -251,13 +251,6 @@ main > input[type="text"]:not(#poznamky-input) {
 /* Extra top spacing before lampy row */
 #lampy-vazy-label {
     margin-top: 10px;
-}
-
-#logo-podpis {
-    position: fixed;
-    bottom: 50px; left: 35px;
-    width: 135px; height: 125px;
-    z-index: -1;
 }
 
 #podpis {

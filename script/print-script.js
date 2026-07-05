@@ -1,3 +1,5 @@
+const { ipcRenderer } = require('electron');
+
 // ------------------------
 // Header management
 // ------------------------
@@ -6,7 +8,12 @@ var jmenoZakaznikaData = document.getElementById("jmeno-zakaznika");
 var telData = document.getElementById("tel");
 var mistoData = document.getElementById("misto")
 
-window.addEventListener("beforeunload", () => {saveInputsToMainPage();});
+let shouldSavePrintInputs = true;
+window.addEventListener("beforeunload", () => {
+    if (shouldSavePrintInputs) {
+        saveInputsToMainPage();
+    }
+});
 
 function saveInputsToMainPage() {
     let savedData = {
@@ -16,6 +23,46 @@ function saveInputsToMainPage() {
     }
     localStorage.setItem('printInputData', JSON.stringify(savedData));
 }
+
+function clearPrintPageData() {
+    shouldSavePrintInputs = false;
+    localStorage.removeItem('printInputData');
+
+    if (jmenoZakaznikaData) jmenoZakaznikaData.value = "";
+    if (telData) telData.value = "";
+    if (mistoData) mistoData.value = "";
+    if (document.getElementById('barva-input')) document.getElementById('barva-input').value = "";
+    if (document.getElementById('cena-input')) document.getElementById('cena-input').value = "";
+    if (document.getElementById('do-kdy-input')) document.getElementById('do-kdy-input').value = "";
+    if (document.getElementById('poznamky-input')) document.getElementById('poznamky-input').value = "";
+
+    const importedElements = [
+        'nahrobky-imported',
+        'schody-imported',
+        'parapety-imported',
+        'doplnky-imported',
+        'lampy-vazy-imported',
+        'pismo-imported',
+        'barva-imported'
+    ];
+
+    importedElements.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.textContent = "";
+            el.innerHTML = "";
+        }
+    });
+
+    ['nahrobky-forms', 'sklodesky-forms', 'schody-forms', 'parapety-forms'].forEach(id => {
+        const container = document.getElementById(id);
+        if (container) container.innerHTML = "";
+    });
+}
+
+ipcRenderer.on('clear-print-data', () => {
+    clearPrintPageData();
+});
 
 function loadPrintInputs() {
     const rawDataInputs = localStorage.getItem("printInputData");
