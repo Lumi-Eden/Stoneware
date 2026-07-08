@@ -208,6 +208,16 @@ formConfigs.forEach( ({btn, overlay, form}) => {
 });
 // ---------------------------------------------------------------------------
 
+// Exit buttons - hide their own overlay
+formExit.forEach((exitBtn) => {
+    exitBtn.addEventListener("click", () => {
+        const overlay = exitBtn.closest('.form-overlay')
+        if (overlay) {
+            overlay.style.display = "none"
+        }
+    })
+})
+
 // Get id of clicked category
 document.querySelectorAll(".category-img").forEach((category) => {
     category.addEventListener("click", e => {
@@ -624,9 +634,9 @@ document.querySelectorAll(".category-img").forEach((category) => {
         if (categoryId == "item7" && !selectedMainCategory) {
             const opravaPat = `file://${location.pathname.replace(/script[\\\/]main\.js.*/, 'oprava.html')}`;
             if (typeof dataString !== 'undefined' && dataString) {
-                window.open(`oprava.html?data=${dataString}`, "_blank", "width=1000");
+                window.open(`oprava.html?data=${dataString}`, "_blank", "width=1000, height=1000");
             } else {
-                window.open("oprava.html", "_blank", "width=1000");
+                window.open("oprava.html", "_blank", "width=1000, height=1000");
             }
         }
 

@@ -81,3 +81,10 @@ obnovaPismaCheckbox.addEventListener("change", () => {
         barvaInput.style.pointerEvents = "none"
     }
 })
+
+document.addEventListener("DOMContentLoaded", () => {
+    // Import and display current date
+    let datum = document.getElementById("datum");
+    currentDate = new Date().toLocaleDateString('cs-CZ');
+    datum.innerText = currentDate;
+})
