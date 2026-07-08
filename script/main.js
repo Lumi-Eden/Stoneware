@@ -1,6 +1,6 @@
 // --- ELECTRON ---
 const { globalShortcut } = require('electron');
-const { app, BrowserWindow, Menu, ipcMain } = require('electron/main');
+const { app, BrowserWindow, Menu, ipcMain, session } = require('electron/main');
 const { url } = require('node:inspector');
 const path = require('node:path')
 
@@ -26,7 +26,7 @@ function createWindow () {
   win.loadFile('index.html')
 
   //  DEV TOOLS ON START
-  win.webContents.openDevTools()
+  // win.webContents.openDevTools()
 
   // --- Print Functionality ---
   const contextMenu = [
@@ -54,6 +54,20 @@ function createWindow () {
             win.setFullScreen(!win.isFullScreen());
           }
         },
+        {
+          label: "Smazat Data",
+          accelerator: 'Ctrl+F8',
+          click: () => {
+            session.defaultSession.clearStorageData()
+              .then(() => {
+                if (printWin) {
+                  printWin.webContents.send('clear-print-data');
+                }
+                console.log('Data cleared!');
+              })
+              .catch(err => console.error(err));
+          }
+        },
         { type: 'separator' },
         {
           label: 'Ukončit',
@@ -74,6 +88,14 @@ function createWindow () {
         { role: 'copy' },
         { role: 'paste' },
         { role: 'selectAll' }
+      ]
+    },
+    {
+      label: 'View',
+      submenu: [
+        { role: 'toggleDevTools', 
+          accelerator: "CmdOrCtrl+Shift+I"
+        }
       ]
     }
   ];

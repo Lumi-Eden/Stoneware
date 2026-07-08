@@ -45,7 +45,8 @@ main h2 { font-size: 15px; font-weight: bold; margin-bottom: 6px; }
 .notes label { display: block; font-weight: bold; margin-bottom: 4px; }
 .notes textarea { width: 100%; padding: 6px; border: 1px solid #999; white-space: pre-wrap; resize: vertical; }
 
-#logo-podpis { position: fixed; bottom: 30px; left: 35px; width: 135px; height: 125px; }
+#logo-podpis { position: fixed; top: -5px; right: 35px; width: 125px; height: 115px; }
+#datum { position: fixed; left: 35px; bottom: 30px; font-size: 15px; }
 #podpis { position: fixed; right: 35px; bottom: 30px; font-weight: bold; font-size: 15px; }
 
 @media print {
