@@ -31,6 +31,8 @@ let selectionSchodyLog = null
 let selectionParapetyMaterial = null
 let selectionParapetyLog = null
 
+let backArrow = document.getElementById("left-arrow")
+
 // Forms
 const nahrobkyFormsBtn = document.getElementById("nahrobky-forms-btn")
 const nahrobkyPripsyFormsBtn = document.getElementById("nahrobky-pripisy-forms-btn")
@@ -218,6 +220,15 @@ formExit.forEach((exitBtn) => {
     })
 })
 
+// ---------------------------------------------------------------------------
+// == Back arrow ==
+backArrow.addEventListener("click", () => {
+    nextCategory = "main-selection"
+    restoreMainSelection();
+    AwaitingPrimarySelectionSchodyMaterial = true
+}) 
+
+// == categories ==
 // Get id of clicked category
 document.querySelectorAll(".category-img").forEach((category) => {
     category.addEventListener("click", e => {
