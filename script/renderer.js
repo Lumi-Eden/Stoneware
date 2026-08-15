@@ -99,15 +99,17 @@ const categoryData = {
     },
 
     nahrobky: {
-        images: ["img/polozky/desky/typ-A.png", "img/polozky/desky/typ-B.png", "img/polozky/desky/typ-C.png", "img/polozky/desky/typ-D.png", "img/polozky/desky/typ-E.png", "img/polozky/desky/typ-F.png"],
-        p: ["Typ-A", "Typ-B", "Typ-C", "Typ-D", "Typ-E", "Typ-F"]
+        images: ["img/polozky/desky/typ-A.png", "img/polozky/desky/typ-B.png", "img/polozky/desky/typ-C.png", "img/polozky/desky/typ-D.png", "img/polozky/desky/typ-E.png", "img/polozky/desky/typ-F.png", "img/polozky/desky/typ-G.png"],
+        p: ["Typ-A", "Typ-B", "Typ-C", "Typ-D", "Typ-E", "Typ-F", "Typ-G"]
     },
+    
     materialy: {
         images: ["img/polozky/zula/antas.png", "img/polozky/zula/aurora.png", "img/polozky/zula/grey.png", "img/polozky/zula/impala-nero.png", "img/polozky/zula/labrador-blue-pearl.png", "img/polozky/zula/orion.png", "img/polozky/zula/paradiso.png", "img/polozky/zula/sardo.png", "img/polozky/zula/tarn.png", "img/polozky/zula/impala-nero-opalovana.jpg", "img/polozky/zula/cinza-opalovana.jpg", "img/polozky/zula/absolute-black.png", "img/polozky/zula/premium-black.jpg"],
         p: ["Antas", "Aurora", "Grey", "Impala Nero", "Labrador Blue Pearl", "Orion", "Paradiso", "Sardo", "Tarn", "Impala Nero Opalovaná", "Cinza Opalovaná", "Absolute Black", "Premium Black"]
     },
+
     pismo: {
-        images: ["img/polozky/font/caslon-regular.png", "img/polozky/font/caslon-bold.png", "img/polozky/font/bangkok-regular.png", "img/polozky/font/monotype-corsiva.png", "img/polozky/font/alternate-g.png", "img/polozky/font/balantines-script.png", "img/polozky/font/balantines-bold.png"],
+        images: ["img/polozky/font/caslon-regular.png", "img/polozky/font/caslon-bold.png", "img/polozky/font/bangkok-regular.png", "img/polozky/font/monotype-corsiva.png", "img/polozky/font/alternate-g.png", "img/polozky/font/balantines-script.png", "img/polozky/font/balantines-bold.png", "img/polozky/font/font-jine.png"],
         p: []
     },
 
@@ -272,6 +274,11 @@ document.querySelectorAll(".category-img").forEach((category) => {
                         selectionNahrobek = "Typ-F"
                         console.log("Náhrobek zvolen: ", selectionNahrobek)
                         break;
+                    
+                    case "item7":
+                        selectionNahrobek = "Typ-G"
+                        console.log("Náhrobek zvolen: ", selectionNahrobek)
+                        break;
                 }
 
                 selectionNahrobekLog = document.createElement("span")
@@ -389,6 +396,7 @@ document.querySelectorAll(".category-img").forEach((category) => {
                     item5: "Alternate Gothic",
                     item6: "Balantines Serif",
                     item7: "Balantines Bold",
+                    item8: "Jiné"
                 }
 
                 const selectedPismo = pismoValues[categoryId]
@@ -547,8 +555,8 @@ document.querySelectorAll(".category-img").forEach((category) => {
             categoryId = ""
 
             // Hide remnants of prev category
-            item7.src = ""; item8.src = "";
-            p7.textContent = ""; p8.textContent = "";
+            item8.src = "";
+            p8.textContent = "";
         }
 
         // Show category Lampy Vázy

@@ -11,7 +11,7 @@ function createWindow () {
   const win = new BrowserWindow({
     width: 1920,
     height: 1080,
-    icon: './tombstone.ico',
+    icon: './lumi-eden-logo.ico',
     show: false,
     webPreferences: {
       nodeIntegration: true,
