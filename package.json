@@ -1,12 +1,12 @@
 {
   "name": "stoneware",
-  "version": "0.4.6-beta-hotfix",
-  "description": "",
+  "version": "0.4.7-beta",
+  "description": "Software pro zjednodušování objednávek v kamenictvích",
   "main": "script/main.js",
   "build": {
     "appId": "com.stoneware.app",
     "win": {
-      "icon": "tombstone.ico",
+      "icon": "lumi-eden-logo.ico",
       "target": {
         "target": "nsis",
         "arch": [
